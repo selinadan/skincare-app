@@ -10,3 +10,16 @@ export type UserSkin = {
 export type SkinConcerns = [];
 
 export type Gender = 'female' | 'male' | 'nonBinary' | 'preferNotToSay';
+
+export type Product = {
+	'productId': number;
+	'type': string;
+	'price': number;
+	'attributes': string[];
+}
+
+export type Routine = {
+	startDate: string;
+	products: Product[];
+	totalPrice: number;
+}

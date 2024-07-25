@@ -5,11 +5,11 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import { translations } from '../utils/translations';
+import { translations } from 'Utils/translations';
 
 interface AddProductModalProps {
 	showModal: boolean;
-	handleShowModal: (boolean) => void;
+	handleShowModal: (shouldShow: boolean) => void;
 }
 
 export default function AddProductModal({

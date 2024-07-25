@@ -11,7 +11,7 @@ import Button from '@mui/material/Button';
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 
-import Delete from '@mui/icons-material/Delete';
+import Clear from '@mui/icons-material/Clear';
 
 export default function RoutineTable() {
 	function createData(
@@ -68,8 +68,8 @@ export default function RoutineTable() {
 							<Rating />
 						</TableCell>
 						<TableCell>
-							<Button>
-								<Delete />
+							<Button color="error">
+								<Clear />
 							</Button>
 							</TableCell>
 						</TableRow>
@@ -77,5 +77,5 @@ export default function RoutineTable() {
 			</TableBody>
 			</Table>
 		</TableContainer>
-		);
+	);
 }

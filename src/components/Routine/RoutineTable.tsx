@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,6 +12,8 @@ import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 
 import Clear from '@mui/icons-material/Clear';
+
+import { translations } from 'Utils/translations';
 
 export default function RoutineTable() {
 	function createData(
@@ -38,10 +40,10 @@ export default function RoutineTable() {
 			  <TableHead>
 				<TableRow>
 					<TableCell align='right'>Step</TableCell>
-					<TableCell>Name</TableCell>
-					<TableCell>Type</TableCell>
-					<TableCell>Price</TableCell>
-					<TableCell>Rating</TableCell>
+					<TableCell>{translations.name}</TableCell>
+					<TableCell>{translations.type}</TableCell>
+					<TableCell>{translations.price}</TableCell>
+					<TableCell>{translations.rating}</TableCell>
 				</TableRow>
 			</TableHead>
 			<TableBody>

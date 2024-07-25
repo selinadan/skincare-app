@@ -38,6 +38,7 @@ module.exports = {
 		hot: true,
 		liveReload: true,
 		historyApiFallback: true,
+		open: true,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({

@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import Button from '@mui/material/Button';
 
-import RoutineTable from './RoutineTable.tsx';
-import AddProductModal from './AddProductModal.tsx'
+import RoutineTable from './RoutineTable';
+import AddProductModal from './AddProductModal'
 
 export default function RoutineContainer() {
 	const [showAddProductModal, setShowAddProductModal] = useState(false);

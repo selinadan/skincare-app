@@ -5,6 +5,8 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import { translations } from '../utils/translations';
+
 interface AddProductModalProps {
 	showModal: boolean;
 	handleShowModal: (boolean) => void;
@@ -29,7 +31,7 @@ export default function AddProductModal({
 					<Button onClick={() => {
 						handleShowModal(false)
 					}}>
-						Add Product
+						{translations.addProduct}
 					</Button>
 				</Grid>
 			</Modal>

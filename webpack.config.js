@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
@@ -18,25 +19,34 @@ module.exports = {
 	},
 	module: {
 		rules: [
-		{
-			test: /\.tsx?$/,
-			use: 'ts-loader',
-			exclude: /node_modules/,
-		},
-		{
-			test: /\.css$/,
-			use: ['style-loader', 'css-loader'],
-		},
+			{
+				test: /\.(js|jsx|ts|tsx)$/,
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: [
+							'@babel/preset-env',
+							'@babel/preset-react',
+							'@babel/preset-typescript',
+						],
+						plugins: [require.resolve('react-refresh/babel')],
+					},
+				},
+			},
+			{
+				test: /\.css$/,
+				use: ['style-loader', 'css-loader'],
+			},
 		],
 	},
 	devServer: {
 		static: {
-			directory: path.join(__dirname, 'src'),
+			directory: path.join(__dirname, 'dist'),
 		},
 		compress: true,
 		port: 9000,
 		hot: true,
-		liveReload: true,
 		historyApiFallback: true,
 		open: true,
 	},
@@ -55,5 +65,6 @@ module.exports = {
 				</html>
 			`,
 		}),
+		new ReactRefreshWebpackPlugin(),
 	],
 };

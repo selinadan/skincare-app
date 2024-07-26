@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 import Grid from '@mui/material/Grid';
@@ -13,19 +14,33 @@ export default function NavBar() {
 			<Grid container>
 				<Grid item>
 					<Button>
-					<Typography color="pink">
-						{translations.routine}
-					</Typography>
-				</Button>
+						<NavLink
+							to="/routine"
+							style={({ isActive }) => ({
+								color: isActive ? 'red' : 'inherit',
+							})}
+						>
+							<Typography color="pink">
+								{translations.routine}
+							</Typography>
+						</NavLink>
+					</Button>
 				</Grid>
 				<Grid item>
 					<Button>
-					<Typography color="pink">
-						{translations.inventory}
-					</Typography>
-				</Button>
+						<NavLink
+							to="/inventory"
+							style={({ isActive }) => ({
+								color: isActive ? 'red' : 'inherit',
+							})}
+						>
+							<Typography color="pink">
+								{translations.inventory}
+							</Typography>
+						</NavLink>
+					</Button>
 				</Grid>
 			</Grid>
 		</AppBar>
-	)
+	);
 }

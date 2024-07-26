@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import Button from '@mui/material/Button';
 
-import RoutineTable from './RoutineTable';
+import InventoryTable from './InventoryTable';
 import AddProductModal from '../AddProductModal';
 
-export default function RoutineContainer() {
+export default function InventoryContainer() {
 	const [showAddProductModal, setShowAddProductModal] = useState(false);
 
 	const handleShowAddProductModal = useCallback((shouldShow: boolean) => {
@@ -23,7 +23,7 @@ export default function RoutineContainer() {
 				showModal={showAddProductModal}
 				handleShowModal={handleShowAddProductModal}
 			/>
-			<RoutineTable />
+			<InventoryTable />
 		</div>
 	);
 }

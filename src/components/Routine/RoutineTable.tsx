@@ -63,9 +63,11 @@ export default function RoutineTable() {
 						<TableCell>
 							{row.price}
 						</TableCell>
+						<TableCell>
 							<TextField id="price" label="Outlined" variant="standard">
 								{row.price}
 							</TextField>
+						</TableCell>
 						<TableCell>
 							<Rating />
 						</TableCell>

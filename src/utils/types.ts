@@ -16,6 +16,7 @@ export type Product = {
 	'type': string;
 	'price': number;
 	'attributes': string[];
+	'name': string;
 }
 
 export type Routine = {

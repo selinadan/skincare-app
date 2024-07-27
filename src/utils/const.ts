@@ -18,3 +18,9 @@ export const PRODUCT_TYPES = {
 	moisturizer: 'moisturizer',
 	sunscreen: 'sunscreen',
 };
+
+export const PRODUCT_ATTRIBUTES = {
+	name: 'name',
+	type: 'type',
+	price: 'price',
+};

@@ -4,15 +4,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const path_1 = __importDefault(require("path"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const routes_1 = __importDefault(require("./routes"));
+const const_1 = require("Utils/const");
 const app = (0, express_1.default)();
-const port = 3000;
-// Serve static files from the 'dist' directory
-app.use(express_1.default.static(path_1.default.join(__dirname, '../dist')));
-// Serve index.html for all routes
-app.get('*', (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, '../dist/index.html'));
-});
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+const PORT = process.env.PORT || 3000;
+// Middleware
+app.use(body_parser_1.default.json());
+app.use(body_parser_1.default.urlencoded({ extended: true }));
+// Routes
+app.use(const_1.PATHS.api, routes_1.default);
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

@@ -2,7 +2,7 @@ export const translations = {
 	inventory: 'Inventory',
 	routine: 'Routine',
 	name: 'Name',
-	type: 'Type',
+	category: 'Category',
 	price: 'Price',
 	rating: 'Rating',
 	addProduct: 'Add Product',

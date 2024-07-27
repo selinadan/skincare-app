@@ -1,26 +1,69 @@
-import express, { Request, Response } from 'express';
-import { ROUTES } from 'Utils/routes';
+import { Request, Response } from 'express';
 
-const productRouter = express.Router();
+import { productGateway } from 'Gateways/productGateway';
 
-productRouter.get('/', (_request: Request, response: Response) =>
-	response.send('Get all products')
-);
+export const getAllProducts = async (
+	_request: Request,
+	response: Response
+): Promise<void> => {
+	try {
+		const products = await productGateway.getAllProducts();
+		response.status(201).json(products);
+	} catch (error) {
+		response.status(500).send('Failed to fetch all products');
+	}
+};
 
-productRouter.get('/:id', (request: Request, response: Response) =>
-	response.send(`Get product with ID ${request.params.id}`)
-);
+export const getProduct = async (
+	request: Request,
+	response: Response
+): Promise<void> => {
+	const id = request.body;
 
-productRouter.post('/', (_request: Request, response: Response) =>
-	response.send('Create new product')
-);
+	try {
+		const product = await productGateway.getProductById(id);
+		response.status(201).json(product);
+	} catch (error) {
+		response.status(500).send(`Failed to fetch product ID ${id}`);
+	}
+};
 
-productRouter.put('/:id', (request: Request, response: Response) =>
-	response.send(`Update product with ID ${request.params.id}`)
-);
+export const createProduct = async (
+	request: Request,
+	response: Response
+): Promise<void> => {
+	try {
+		await productGateway.createProduct(request.body);
+		response.status(201).send('Product created');
+	} catch (error) {
+		response.status(500).send('Failed to create product');
+	}
+};
 
-productRouter.delete('/:id', (request: Request, response: Response) =>
-	response.send(`Delete product with ID ${request.params.id}`)
-);
+export const updateProduct = async (
+	request: Request,
+	response: Response
+): Promise<void> => {
+	const id = request.body;
 
-export { productRouter };
+	try {
+		await productGateway.updateProduct(request.body);
+		response.status(201).send(`Product ID ${id} updated`);
+	} catch (error) {
+		response.status(500).send(`Failed to update product ID ${id}`);
+	}
+};
+
+export const deleteProduct = async (
+	request: Request,
+	response: Response
+): Promise<void> => {
+	const id = request.body;
+
+	try {
+		await productGateway.deleteProduct(id);
+		response.status(201).send(`Product ID ${id} deleted`);
+	} catch (error) {
+		response.status(500).send(`Failed to delete product ID ${id}`);
+	}
+};

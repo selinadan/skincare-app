@@ -9,9 +9,18 @@
 		"skipLibCheck": true,
 		"baseUrl": "./src",
 		"paths": {
-			"Utils/*": ["utils/*"]
+			"Utils/*": ["utils/*"],
+			"Controllers/*": ["controllers/*"],
+			"Models/*": ["models/*"],
+			"Gateways/*": ["gateways/*"],
+			"Routes/*": ["routes/*"]
 		}
 	},
-	"include": ["src/**/*.ts", "gateways/productGateway.ts", "controllers/productController.ts", "models/productModel.ts"],
+	"include": [
+		"src/**/*.ts",
+		"gateways/productGateway.ts",
+		"controllers/productController.ts",
+		"models/productModel.ts"
+	],
 	"exclude": ["node_modules"]
 }

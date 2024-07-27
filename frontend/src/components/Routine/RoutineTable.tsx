@@ -41,7 +41,7 @@ export default function RoutineTable() {
 					<TableRow>
 						<TableCell align="right">Step</TableCell>
 						<TableCell>{translations.name}</TableCell>
-						<TableCell>{translations.type}</TableCell>
+						<TableCell>{translations.category}</TableCell>
 						<TableCell>{translations.price}</TableCell>
 						<TableCell>{translations.rating}</TableCell>
 					</TableRow>

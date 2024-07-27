@@ -11,7 +11,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import { translations } from 'Utils/translations';
-import { PRODUCT_TYPES, PRODUCT_ATTRIBUTES } from 'Utils/const';
+import { PRODUCT_CATEGORIES, PRODUCT_ATTRIBUTES } from 'Utils/const';
 
 interface AddProductModalProps {
 	showModal: boolean;
@@ -22,17 +22,17 @@ export default function AddProductModal({
 	showModal,
 	handleShowModal,
 }: AddProductModalProps) {
-	type ProductTypes = typeof PRODUCT_TYPES;
-	type ProductTypeKeys = keyof ProductTypes;
+	type ProductCategories = typeof PRODUCT_CATEGORIES;
+	type ProductCategoriesKeys = keyof ProductCategories;
 
-	const productTypeKeys: ProductTypeKeys[] = Object.keys(
-		PRODUCT_TYPES
-	) as ProductTypeKeys[];
+	const productCategoriesKeys: ProductCategoriesKeys[] = Object.keys(
+		PRODUCT_CATEGORIES
+	) as ProductCategoriesKeys[];
 
 	const defaultProduct = {
 		name: '',
 		price: 0,
-		category: PRODUCT_TYPES.cleanser,
+		category: PRODUCT_CATEGORIES.cleanser,
 	};
 
 	const [product, setProduct] = useState(defaultProduct);
@@ -52,7 +52,7 @@ export default function AddProductModal({
 		const { name, value } = event.target;
 		setProduct(prevProduct => ({
 			...prevProduct,
-			[name]: value as ProductTypeKeys,
+			[name]: value as ProductCategoriesKeys,
 		}));
 	}, []);
 
@@ -73,17 +73,19 @@ export default function AddProductModal({
 					/>
 				</DialogContent>
 				<DialogContent>
-					<DialogContentText>{translations.type}</DialogContentText>
+					<DialogContentText>
+						{translations.category}
+					</DialogContentText>
 					<Select
 						required
-						label={translations.type}
-						name={PRODUCT_ATTRIBUTES.type}
+						label={translations.category}
+						name={PRODUCT_ATTRIBUTES.category}
 						value={product.category}
 						onChange={handleSelectChange}
 					>
-						{productTypeKeys.map(key => (
+						{productCategoriesKeys.map(key => (
 							<MenuItem key={key} value={key}>
-								{PRODUCT_TYPES[key]}
+								{PRODUCT_CATEGORIES[key]}
 							</MenuItem>
 						))}
 					</Select>

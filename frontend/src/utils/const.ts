@@ -10,7 +10,7 @@ export const AGING = 'aging';
 export const BRIGHTENING = 'brightening';
 export const DARK_SPOTS = 'darkSpots';
 
-export const PRODUCT_TYPES = {
+export const PRODUCT_CATEGORIES = {
 	cleanser: 'cleanser',
 	toner: 'toner',
 	essence: 'essence',
@@ -21,6 +21,6 @@ export const PRODUCT_TYPES = {
 
 export const PRODUCT_ATTRIBUTES = {
 	name: 'name',
-	type: 'type',
+	category: 'category',
 	price: 'price',
 };

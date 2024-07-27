@@ -1,17 +1,22 @@
 import express from 'express';
-import path from 'path';
+import bodyParser from 'body-parser';
+import { productController } from './controllers/productController';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// Serve static files from the 'dist' directory
-app.use(express.static(path.join(__dirname, '../dist')));
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve index.html for all routes
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../dist/index.html'));
-});
+// Routes
+app.get('/api/products', productController.getAllProducts);
+app.get('/api/products/:id', productController.getProductById);
+app.post('/api/products/:id', productController.createProduct);
+app.put('/api/products/:id', productController.updateProduct);
+app.put('/api/products/:id', productController.updateProduct);
 
+// Start server
 app.listen(port, () => {
-	console.log(`Server running at http://localhost:${port}`);
+	console.log(`Server is running on port ${port}`);
 });

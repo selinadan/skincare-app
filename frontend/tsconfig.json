@@ -23,6 +23,11 @@
 			"Utils/*": ["utils/*"]
 		}
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx"],
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx",
+		"../backend/database.ts",
+		"../backend/dist/server.ts"
+	],
 	"exclude": ["node_modules"]
 }

@@ -13,7 +13,7 @@ export type Gender = 'female' | 'male' | 'nonBinary' | 'preferNotToSay';
 
 export type Product = {
 	id: number;
-	type: string;
+	category: string;
 	price: number;
 	name: string;
 	attributes?: string[];

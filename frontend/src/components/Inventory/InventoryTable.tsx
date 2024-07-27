@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -15,9 +15,26 @@ import Clear from '@mui/icons-material/Clear';
 
 import { translations } from 'Utils/translations';
 import { Product } from 'Utils/types';
+import { getAllProducts } from 'Api/productsClient';
 
 export default function InventoryTable() {
-	const rows: Product[] = [];
+	const [products, setProducts] = useState<Product[]>([]);
+	const [error, setError] = useState('');
+
+	useEffect(() => {
+		const fetchProducts = async () => {
+			try {
+				const productsData = (await getAllProducts()) ?? [];
+				setProducts(productsData);
+			} catch (error) {
+				const message = 'Error fetching products';
+				setError(message);
+				console.error(message, error);
+			}
+		};
+
+		fetchProducts();
+	}, []);
 
 	return (
 		<TableContainer component={Paper}>
@@ -32,7 +49,7 @@ export default function InventoryTable() {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row, index) => (
+					{products.map((product, index) => (
 						<TableRow
 							key={index}
 							sx={{
@@ -50,16 +67,16 @@ export default function InventoryTable() {
 									label="Outlined"
 									variant="standard"
 								>
-									{row.name}
+									{product.name}
 								</TextField>
 							</TableCell>
-							<TableCell>{row.price}</TableCell>
+							<TableCell>{product.price}</TableCell>
 							<TextField
 								id="price"
 								label="Outlined"
 								variant="standard"
 							>
-								{row.price}
+								{product.price}
 							</TextField>
 							<TableCell>
 								<Rating />

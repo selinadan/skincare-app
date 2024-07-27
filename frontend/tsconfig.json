@@ -21,7 +21,7 @@
 		"paths": {
 			"Components/*": ["components/*"],
 			"Utils/*": ["utils/*"],
-			"Backend/*": ["../../backend/*"]
+			"Api/*": ["api/*"]
 		}
 	},
 	"include": [

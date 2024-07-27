@@ -1,3 +1,6 @@
+export const API_BASE_URL = 'http://localhost:9000';
+export const API_PRODUCTS = '/products';
+
 export const OILY = 'oily';
 export const NORMAL = 'normal';
 export const DRY = 'dry';

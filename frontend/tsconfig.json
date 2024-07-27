@@ -20,7 +20,8 @@
 		"baseUrl": "./src",
 		"paths": {
 			"Components/*": ["components/*"],
-			"Utils/*": ["utils/*"]
+			"Utils/*": ["utils/*"],
+			"Backend/*": ["../../backend/*"]
 		}
 	},
 	"include": [

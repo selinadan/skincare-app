@@ -12,7 +12,7 @@ export type SkinConcerns = [];
 export type Gender = 'female' | 'male' | 'nonBinary' | 'preferNotToSay';
 
 export type Product = {
-	productId: number;
+	id: number;
 	type: string;
 	price: number;
 	name: string;

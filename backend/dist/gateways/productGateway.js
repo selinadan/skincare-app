@@ -31,7 +31,7 @@ class ProductGateway {
 				category TEXT NOT NULL
 			)
 		`;
-            this.db = yield (0, sqlite_1.open)({
+            this.db = yield sqlite_1.open({
                 filename: const_1.DATABASE_PATH,
                 driver: sqlite3_1.default.Database,
             });

@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
+		"target": "ESNext",
 		"module": "ESNext",
 		"lib": ["dom", "dom.iterable", "esnext"],
 		"outDir": "./dist",
@@ -15,14 +15,15 @@
 		"noFallthroughCasesInSwitch": true,
 		"moduleResolution": "node",
 		"isolatedModules": true,
-		"noEmit": false,
+		"noEmit": true,
 		"jsx": "react-jsx",
 		"baseUrl": "./src",
 		"paths": {
 			"Components/*": ["components/*"],
 			"Utils/*": ["utils/*"],
 			"Api/*": ["api/*"]
-		}
+		},
+		"types": ["vite/client"]
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx"],
 	"exclude": ["node_modules"]

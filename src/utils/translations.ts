@@ -5,5 +5,5 @@ export const translations = {
 	type: 'Type',
 	price: 'Price',
 	rating: 'Rating',
-	addProduct: 'addProduct',
+	addProduct: 'Add Product',
 };

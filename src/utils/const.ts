@@ -9,3 +9,12 @@ export const TEXTURE = 'texture';
 export const AGING = 'aging';
 export const BRIGHTENING = 'brightening';
 export const DARK_SPOTS = 'darkSpots';
+
+export const PRODUCT_TYPES = {
+	cleanser: 'cleanser',
+	toner: 'toner',
+	essence: 'essence',
+	serum: 'serum',
+	moisturizer: 'moisturizer',
+	sunscreen: 'sunscreen',
+};

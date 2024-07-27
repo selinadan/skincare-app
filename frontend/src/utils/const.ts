@@ -1,5 +1,8 @@
-export const API_BASE_URL = 'http://localhost:9000';
-export const API_PRODUCTS = '/products';
+export const PORT = 5173;
+
+export const API = '/api';
+export const API_BASE_URL = `http://localhost:${PORT}`;
+export const API_PRODUCTS = `${API}/products`;
 
 export const OILY = 'oily';
 export const NORMAL = 'normal';

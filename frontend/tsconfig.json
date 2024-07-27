@@ -15,7 +15,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"moduleResolution": "node",
 		"isolatedModules": true,
-		"noEmit": true,
+		"noEmit": false,
 		"jsx": "react-jsx",
 		"baseUrl": "./src",
 		"paths": {
@@ -24,11 +24,6 @@
 			"Api/*": ["api/*"]
 		}
 	},
-	"include": [
-		"src/**/*.ts",
-		"src/**/*.tsx",
-		"../backend/database.ts",
-		"../backend/dist/server.ts"
-	],
+	"include": ["src/**/*.ts", "src/**/*.tsx"],
 	"exclude": ["node_modules"]
 }

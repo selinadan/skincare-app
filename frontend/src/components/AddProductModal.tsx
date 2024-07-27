@@ -12,6 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 
 import { translations } from 'Utils/translations';
 import { PRODUCT_CATEGORIES, PRODUCT_ATTRIBUTES } from 'Utils/const';
+import { Product } from 'Utils/types';
+import { createProduct } from 'Api/productsClient';
 
 interface AddProductModalProps {
 	showModal: boolean;
@@ -30,12 +32,14 @@ export default function AddProductModal({
 	) as ProductCategoriesKeys[];
 
 	const defaultProduct = {
+		id: 0,
 		name: '',
 		price: 0,
 		category: PRODUCT_CATEGORIES.cleanser,
 	};
 
 	const [product, setProduct] = useState(defaultProduct);
+	const [error, setError] = useState('');
 
 	const handleInputChange = useCallback(
 		(event: ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +59,8 @@ export default function AddProductModal({
 			[name]: value as ProductCategoriesKeys,
 		}));
 	}, []);
+
+	const handleSubmit = (product: Product) => createProduct(product);
 
 	return (
 		<div>
@@ -109,6 +115,7 @@ export default function AddProductModal({
 					<Button
 						variant="contained"
 						onClick={() => {
+							handleSubmit(product);
 							handleShowModal(false);
 						}}
 					>

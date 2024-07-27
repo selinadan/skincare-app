@@ -1,10 +1,8 @@
-import axios from 'axios';
-
 import { API_BASE_URL, API_PRODUCTS } from 'Utils/const';
 import { Product } from 'Utils/types';
 import { createApiClient } from './clientFactory';
 
-const baseURL = `${API_BASE_URL}/${API_PRODUCTS}`;
+const baseURL = `${API_BASE_URL}${API_PRODUCTS}`;
 const productApiClient = createApiClient({ baseURL: baseURL });
 
 export const getAllProducts = async () => {

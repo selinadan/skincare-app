@@ -43,51 +43,56 @@ export default function InventoryTable() {
 					<TableRow>
 						<TableCell align="right">Step</TableCell>
 						<TableCell>{translations.name}</TableCell>
-						<TableCell>{translations.type}</TableCell>
+						<TableCell>{translations.category}</TableCell>
 						<TableCell>{translations.price}</TableCell>
 						<TableCell>{translations.rating}</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{products.map((product, index) => (
-						<TableRow
-							key={index}
-							sx={{
-								'&:last-child td, &:last-child th': {
-									border: 0,
-								},
-							}}
-						>
-							<TableCell component="th" scope="row" align="right">
-								{index}
-							</TableCell>
-							<TableCell component="th" scope="row">
+					{products &&
+						products.map((product, index) => (
+							<TableRow
+								key={index}
+								sx={{
+									'&:last-child td, &:last-child th': {
+										border: 0,
+									},
+								}}
+							>
+								<TableCell
+									component="th"
+									scope="row"
+									align="right"
+								>
+									{index}
+								</TableCell>
+								<TableCell component="th" scope="row">
+									<TextField
+										id="name"
+										label="Outlined"
+										variant="standard"
+									>
+										{product.name}
+									</TextField>
+								</TableCell>
+								<TableCell>{product.price}</TableCell>
 								<TextField
-									id="name"
+									id="price"
 									label="Outlined"
 									variant="standard"
 								>
-									{product.name}
+									{product.price}
 								</TextField>
-							</TableCell>
-							<TableCell>{product.price}</TableCell>
-							<TextField
-								id="price"
-								label="Outlined"
-								variant="standard"
-							>
-								{product.price}
-							</TextField>
-							<TableCell>
-								<Rating />
-							</TableCell>
-							<TableCell>
-								<Button color="error">
-									<Clear />
-								</Button>
-							</TableCell>
-						</TableRow>
-					))}
+								<TableCell>
+									<Rating />
+								</TableCell>
+								<TableCell>
+									<Button color="error">
+										<Clear />
+									</Button>
+								</TableCell>
+							</TableRow>
+						))}
 				</TableBody>
 			</Table>
 		</TableContainer>

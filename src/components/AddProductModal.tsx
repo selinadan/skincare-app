@@ -66,6 +66,7 @@ export default function AddProductModal({
 				<DialogContent>
 					<DialogContentText>{translations.name}</DialogContentText>
 					<TextField
+						required
 						label={translations.sampleName}
 						name={PRODUCT_ATTRIBUTES.name}
 						onChange={handleInputChange}
@@ -74,6 +75,7 @@ export default function AddProductModal({
 				<DialogContent>
 					<DialogContentText>{translations.type}</DialogContentText>
 					<Select
+						required
 						label={translations.type}
 						name={PRODUCT_ATTRIBUTES.type}
 						value={product.category}
@@ -89,6 +91,7 @@ export default function AddProductModal({
 				<DialogContent>
 					<DialogContentText>{translations.price}</DialogContentText>
 					<TextField
+						required
 						name={PRODUCT_ATTRIBUTES.price}
 						onChange={handleInputChange}
 						InputProps={{

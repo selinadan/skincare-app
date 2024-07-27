@@ -16,11 +16,6 @@
 			"Routes/*": ["routes/*"]
 		}
 	},
-	"include": [
-		"src/**/*.ts",
-		"gateways/productGateway.ts",
-		"controllers/productController.ts",
-		"models/productModel.ts"
-	],
+	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"]
 }

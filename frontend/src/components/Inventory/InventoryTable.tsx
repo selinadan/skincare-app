@@ -21,20 +21,20 @@ export default function InventoryTable() {
 	const [products, setProducts] = useState<Product[]>([]);
 	const [error, setError] = useState('');
 
-	useEffect(() => {
-		const fetchProducts = async () => {
-			try {
-				const productsData = (await getAllProducts()) ?? [];
-				setProducts(productsData);
-			} catch (error) {
-				const message = 'Error fetching products';
-				setError(message);
-				console.error(message, error);
-			}
-		};
+	// useEffect(() => {
+	// 	const fetchProducts = async () => {
+	// 		try {
+	// 			const productsData = (await getAllProducts()) ?? [];
+	// 			setProducts(productsData);
+	// 		} catch (error) {
+	// 			const message = 'Error fetching products';
+	// 			setError(message);
+	// 			console.error(message, error);
+	// 		}
+	// 	};
 
-		fetchProducts();
-	}, []);
+	// 	fetchProducts();
+	// }, []);
 
 	return (
 		<TableContainer component={Paper}>

@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 
-import { PATHS, FRONTEND_URL } from 'Utils/constants';
+import { PATHS, FRONTEND_URL, STATUS } from 'Utils/constants';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,7 +27,7 @@ app.use(
 app.use(PATHS.products, productRoutes);
 
 app.use((_request, response) => {
-	response.status(404).json({ message: 'Route not found' });
+	response.status(STATUS.NOT_FOUND).json({ message: 'Route not found' });
 });
 
 app.use((request, _response, next) => {

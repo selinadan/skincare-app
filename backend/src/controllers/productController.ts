@@ -44,13 +44,14 @@ export const updateProduct = async (
 	request: Request,
 	response: Response
 ): Promise<void> => {
-	const id = request.body;
+	const product = request.body;
+	const productId = product.id;
 
 	try {
-		await productGateway.updateProduct(request.body);
-		response.status(201).send(`Product ID ${id} updated`);
+		await productGateway.updateProduct(product);
+		response.status(201).send(`Product ID ${productId} updated`);
 	} catch (error) {
-		response.status(500).send(`Failed to update product ID ${id}`);
+		response.status(500).send(`Failed to update product ID ${productId}`);
 	}
 };
 

@@ -2,6 +2,7 @@ import productRoutes from 'Routes/productRoutes';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import morgan from 'morgan';
 
 import { PATHS, FRONTEND_URL } from 'Utils/const';
 
@@ -9,15 +10,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // CORS
-app.use(cors({
-	origin: FRONTEND_URL,
-	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-	credentials: true,
-}));
+app.use(
+	cors({
+		origin: FRONTEND_URL,
+		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+		credentials: true,
+	})
+);
 
 // Routes
 app.use(PATHS.products, productRoutes);

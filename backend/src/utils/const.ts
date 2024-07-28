@@ -8,7 +8,7 @@ export const BACKEND_URL = `${BASE_URL}:${BACKEND_PORT}`;
 
 export const PATHS = {
 	root: '/',
-	id: ':id',
+	rootId: '/:id',
 	api: '/api',
 	products: '/products',
 };

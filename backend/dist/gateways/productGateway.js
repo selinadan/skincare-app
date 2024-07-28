@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productGateway = void 0;
 const sqlite3_1 = __importDefault(require("sqlite3"));
 const sqlite_1 = require("sqlite");
-const const_1 = require("Utils/const");
+const constants_1 = require("Utils/constants");
 const dbUtils_1 = require("Utils/dbUtils");
 class ProductGateway {
     constructor() {
@@ -33,7 +33,7 @@ class ProductGateway {
 			)
 		`;
             this.db = yield (0, sqlite_1.open)({
-                filename: const_1.DATABASE_PATH,
+                filename: constants_1.DATABASE_PATH,
                 driver: sqlite3_1.default.Database,
             });
             yield this.db.exec(sql);

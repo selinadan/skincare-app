@@ -11,13 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteProduct = exports.updateProduct = exports.createProduct = exports.getProduct = exports.getAllProducts = void 0;
 const productGateway_1 = require("Gateways/productGateway");
+const constants_1 = require("Utils/constants");
 const getAllProducts = (_request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const products = yield productGateway_1.productGateway.getAllProducts();
-        response.status(201).json(products);
+        console.log('Fetched all products', products);
+        response.status(constants_1.STATUS.OK).json(products);
     }
     catch (error) {
-        response.status(500).send('Failed to fetch all products');
+        console.error('Failed to fetch all products', error);
+        response.status(constants_1.STATUS.INTERNAL_SERVER_ERROR);
     }
 });
 exports.getAllProducts = getAllProducts;
@@ -25,20 +28,25 @@ const getProduct = (request, response) => __awaiter(void 0, void 0, void 0, func
     const id = request.body;
     try {
         const product = yield productGateway_1.productGateway.getProductById(id);
-        response.status(201).json(product);
+        console.log('Fetched product', product);
+        response.status(constants_1.STATUS.OK).json(product);
     }
     catch (error) {
-        response.status(500).send(`Failed to fetch product ID ${id}`);
+        console.error(`Failed to fetch product ID ${id}`, error);
+        response.status(constants_1.STATUS.INTERNAL_SERVER_ERROR);
     }
 });
 exports.getProduct = getProduct;
 const createProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield productGateway_1.productGateway.createProduct(request.body);
-        response.status(201).send('Product created');
+        const product = request.body;
+        yield productGateway_1.productGateway.createProduct(product);
+        console.log('Product created', product);
+        response.status(constants_1.STATUS.CREATED).json(product);
     }
     catch (error) {
-        response.status(500).send('Failed to create product');
+        console.error('Failed to create product', error);
+        response.status(constants_1.STATUS.INTERNAL_SERVER_ERROR);
     }
 });
 exports.createProduct = createProduct;
@@ -47,10 +55,12 @@ const updateProduct = (request, response) => __awaiter(void 0, void 0, void 0, f
     const productId = product.id;
     try {
         yield productGateway_1.productGateway.updateProduct(product);
-        response.status(201).send(`Product ID ${productId} updated`);
+        console.log(`Product ID ${productId} updated`, product);
+        response.status(constants_1.STATUS.CREATED).json(product);
     }
     catch (error) {
-        response.status(500).send(`Failed to update product ID ${productId}`);
+        console.error(`Failed to update product ID ${productId}`, error);
+        response.status(constants_1.STATUS.INTERNAL_SERVER_ERROR);
     }
 });
 exports.updateProduct = updateProduct;
@@ -58,10 +68,12 @@ const deleteProduct = (request, response) => __awaiter(void 0, void 0, void 0, f
     const id = request.body;
     try {
         yield productGateway_1.productGateway.deleteProduct(id);
-        response.status(201).send(`Product ID ${id} deleted`);
+        console.log(`Product ID ${id} deleted`, id);
+        response.status(constants_1.STATUS.NO_CONTENT).send(id);
     }
     catch (error) {
-        response.status(500).send(`Failed to delete product ID ${id}`);
+        console.log(`Failed to delete product ID ${id}`, error);
+        response.status(constants_1.STATUS.INTERNAL_SERVER_ERROR);
     }
 });
 exports.deleteProduct = deleteProduct;

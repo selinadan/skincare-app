@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import { productGateway } from 'Gateways/productGateway';
 import { STATUS } from 'Utils/constants';
+import { logger } from 'Utils/logger';
 
 export const getAllProducts = async (
 	_request: Request,
@@ -9,7 +10,7 @@ export const getAllProducts = async (
 ): Promise<void> => {
 	try {
 		const products = await productGateway.getAllProducts();
-		console.log('Fetched all products', products);
+		logger.info('Fetched all products:', products);
 		response.status(STATUS.OK).json(products);
 	} catch (error) {
 		console.error('Failed to fetch all products', error);

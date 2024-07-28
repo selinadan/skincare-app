@@ -2,7 +2,7 @@
 	"name": "backend",
 	"version": "1.0.0",
 	"scripts": {
-		"start": "node dist/server.js",
+		"start": "ts-node -r tsconfig-paths/register src/server.ts",
 		"build": "tsc",
 		"dev": "ts-node-dev -r tsconfig-paths/register src/server.ts"
 	},

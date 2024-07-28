@@ -20,7 +20,7 @@ app.use(cors({
 }));
 
 // Routes
-app.use(`${PATHS.products}`, productRoutes);
+app.use(PATHS.products, productRoutes);
 
 app.use((_request, response) => {
 	response.status(404).json({ message: 'Route not found' });

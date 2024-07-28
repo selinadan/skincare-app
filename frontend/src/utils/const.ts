@@ -5,7 +5,7 @@ export const PATHS = {
 	root: '/',
 	id: ':id',
 	api: '/api',
-	products: '/products'
+	products: '/products',
 };
 
 export const API_BASE_URL = `http://localhost`;
@@ -37,4 +37,10 @@ export const PRODUCT_ATTRIBUTES = {
 	name: 'name',
 	category: 'category',
 	price: 'price',
+};
+
+export const MODAL_MODES = {
+	add: 'add',
+	edit: 'edit',
+	delete: 'delete',
 };

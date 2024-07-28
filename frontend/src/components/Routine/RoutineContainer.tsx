@@ -2,26 +2,27 @@ import { useState, useCallback } from 'react';
 import Button from '@mui/material/Button';
 
 import RoutineTable from './RoutineTable';
-import AddProductModal from '../AddProductModal';
+import ProductModal from '../ProductModal';
+import { translations } from 'Utils/translations';
 
 export default function RoutineContainer() {
-	const [showAddProductModal, setShowAddProductModal] = useState(false);
+	const [isOpen, setIsOpen] = useState(false);
 
-	const handleShowAddProductModal = useCallback((shouldShow: boolean) => {
-		setShowAddProductModal(shouldShow);
+	const handleShowProductModal = useCallback((shouldShow: boolean) => {
+		setIsOpen(shouldShow);
 	}, []);
 
 	return (
 		<div>
 			<Button
 				variant="contained"
-				onClick={() => handleShowAddProductModal(true)}
+				onClick={() => handleShowProductModal(true)}
 			>
-				Add Product
+				{translations.addProduct}
 			</Button>
-			<AddProductModal
-				showModal={showAddProductModal}
-				handleShowModal={handleShowAddProductModal}
+			<ProductModal
+				isOpen={isOpen}
+				handleShowModal={handleShowProductModal}
 			/>
 			<RoutineTable />
 		</div>

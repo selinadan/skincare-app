@@ -15,15 +15,15 @@ import { PRODUCT_CATEGORIES, PRODUCT_ATTRIBUTES } from 'Utils/const';
 import { Product } from 'Utils/types';
 import { createProduct } from 'Api/productsClient';
 
-interface AddProductModalProps {
-	showModal: boolean;
+interface ProductModalProps {
+	isOpen: boolean;
 	handleShowModal: (shouldShow: boolean) => void;
 }
 
-export default function AddProductModal({
-	showModal,
+export default function ProductModal({
+	isOpen,
 	handleShowModal,
-}: AddProductModalProps) {
+}: ProductModalProps) {
 	type ProductCategories = typeof PRODUCT_CATEGORIES;
 	type ProductCategoriesKeys = keyof ProductCategories;
 
@@ -66,7 +66,7 @@ export default function AddProductModal({
 		<div>
 			<Dialog
 				fullWidth
-				open={showModal}
+				open={isOpen}
 				onClose={() => handleShowModal(false)}
 			>
 				<DialogContent>

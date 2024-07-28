@@ -24,7 +24,8 @@ export const getProduct = async (
 		const product = await productGateway.getProductById(id);
 		response.status(201).json(product);
 	} catch (error) {
-		response.status(500).send(`Failed to fetch product ID ${id}`);
+		console.error(`Failed to fetch product ID ${id}`, error);
+		response.sendStatus(500);
 	}
 };
 
@@ -33,10 +34,13 @@ export const createProduct = async (
 	response: Response
 ): Promise<void> => {
 	try {
-		await productGateway.createProduct(request.body);
-		response.status(201).send('Product created');
+		const product = request.body;
+		await productGateway.createProduct(product);
+		console.log('Product created', product);
+		response.sendStatus(201);
 	} catch (error) {
-		response.status(500).send('Failed to create product');
+		console.error('Failed to create product', error);
+		response.sendStatus(500);
 	}
 };
 
@@ -49,9 +53,11 @@ export const updateProduct = async (
 
 	try {
 		await productGateway.updateProduct(product);
-		response.status(201).send(`Product ID ${productId} updated`);
+		console.log(`Product ID ${productId} updated`, product);
+		response.sendStatus(201);
 	} catch (error) {
-		response.status(500).send(`Failed to update product ID ${productId}`);
+		console.error(`Failed to update product ID ${productId}`, error);
+		response.sendStatus(500);
 	}
 };
 
@@ -63,8 +69,10 @@ export const deleteProduct = async (
 
 	try {
 		await productGateway.deleteProduct(id);
-		response.status(201).send(`Product ID ${id} deleted`);
+		console.log(`Product ID ${id} deleted`, id);
+		response.sendStatus(201);
 	} catch (error) {
-		response.status(500).send(`Failed to delete product ID ${id}`);
+		console.log(`Failed to delete product ID ${id}`, error);
+		response.sendStatus(500);
 	}
 };

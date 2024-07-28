@@ -58,7 +58,6 @@ export const deleteProduct = async (id: number) => {
 
 	try {
 		const response = await productApiClient.getClient().delete(path);
-
 		return response.data;
 	} catch (error) {
 		console.error(`Error deleting product ID ${id}`, error);

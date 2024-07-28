@@ -1,8 +1,9 @@
+import productRoutes from 'Routes/productRoutes';
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
-import router from './routes';
-import { PATHS } from 'Utils/const';
+import { PATHS, FRONTEND_URL } from 'Utils/const';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,8 +12,24 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// CORS
+app.use(cors({
+	origin: FRONTEND_URL,
+	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+	credentials: true,
+}));
+
 // Routes
-app.use(PATHS.api, router);
+app.use(PATHS.products, productRoutes);
+
+app.use((_request, response) => {
+	response.status(404).json({ message: 'Route not found' });
+});
+
+app.use((request, _response, next) => {
+	console.log(`Request received: ${request.method} ${request.url}`);
+	next();
+});
 
 // Start server
 app.listen(PORT, () => {

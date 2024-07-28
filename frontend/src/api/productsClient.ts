@@ -16,8 +16,9 @@ export const getAllProducts = async () => {
 };
 
 export const getProduct = async (id: number) => {
+	const path = `${PATHS.root}${id}`;
+
 	try {
-		const path = `${PATHS.root}${id}`;
 		const response = await productApiClient.getClient().get(path);
 
 		return response.data;
@@ -29,7 +30,9 @@ export const getProduct = async (id: number) => {
 
 export const createProduct = async (product: Product) => {
 	try {
-		const response = await productApiClient.getClient().post(PATHS.root, product);
+		const response = await productApiClient
+			.getClient()
+			.post(PATHS.root, product);
 		return response.data;
 	} catch (error) {
 		console.error(`Error creating product`, error);
@@ -38,8 +41,13 @@ export const createProduct = async (product: Product) => {
 };
 
 export const updateProduct = async (product: Product) => {
+	const path = `${PATHS.root}${product.id}`;
+	console.log(path);
+
 	try {
-		const response = await productApiClient.getClient().patch(PATHS.root, product);
+		const response = await productApiClient
+			.getClient()
+			.patch(path, product);
 		return response.data;
 	} catch (error) {
 		console.error(`Error updating product ID ${product.id}`, error);
@@ -48,8 +56,9 @@ export const updateProduct = async (product: Product) => {
 };
 
 export const deleteProduct = async (id: number) => {
+	const path = `${PATHS.root}${id}`;
+
 	try {
-		const path = `${PATHS.root}${id}`;
 		const response = await productApiClient.getClient().delete(path);
 
 		return response.data;

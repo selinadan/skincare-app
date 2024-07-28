@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ChangeEvent } from 'react';
+import { useEffect, useState, useCallback, ChangeEvent } from 'react';
 
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
@@ -17,11 +17,11 @@ import {
 	MODAL_MODES,
 } from 'Utils/const';
 import { Product } from 'Utils/types';
-import { createProduct } from 'Api/productsClient';
+import { createProduct, updateProduct } from 'Api/productsClient';
 import { useProductModal } from './ModalContext';
 
 export default function ProductModal() {
-	const { isOpen, mode, productContext, handleOpenModal } = useProductModal();
+	const { isOpen, mode, product, handleOpenModal } = useProductModal();
 
 	type ProductCategories = typeof PRODUCT_CATEGORIES;
 	type ProductCategoriesKeys = keyof ProductCategories;
@@ -30,20 +30,24 @@ export default function ProductModal() {
 		PRODUCT_CATEGORIES
 	) as ProductCategoriesKeys[];
 
-	const defaultProduct = {
-		id: 0,
-		name: '',
-		price: 0,
-		category: PRODUCT_CATEGORIES.cleanser,
-	};
+	const [newProduct, setNewProduct] = useState<Product>(product);
+	const [submitButtonText, setSubmitButtonText] = useState('');
 
-	const [product, setProduct] = useState(defaultProduct);
-	const [error, setError] = useState('');
+	const isCreate = mode === MODAL_MODES.create;
+	const isUpdate = mode === MODAL_MODES.update;
+
+	useEffect(() => {
+		if (isCreate) {
+			setSubmitButtonText(translations.addProduct);
+		} else if (isUpdate) {
+			setSubmitButtonText(translations.editProduct);
+		}
+	});
 
 	const handleInputChange = useCallback(
 		(event: ChangeEvent<HTMLInputElement>) => {
 			const { name, value } = event.target;
-			setProduct(prevProduct => ({
+			setNewProduct(prevProduct => ({
 				...prevProduct,
 				[name]: value,
 			}));
@@ -53,20 +57,17 @@ export default function ProductModal() {
 
 	const handleSelectChange = useCallback((event: SelectChangeEvent) => {
 		const { name, value } = event.target;
-		setProduct(prevProduct => ({
+		setNewProduct(prevProduct => ({
 			...prevProduct,
 			[name]: value as ProductCategoriesKeys,
 		}));
 	}, []);
 
-	const handleSubmit = (product: Product) => createProduct(product);
-
-	const getButtonText = () => {
-		if (mode === MODAL_MODES.create) {
-			return translations.addProduct;
-		}
-		if (mode === MODAL_MODES.update) {
-			return translations.editProduct;
+	const handleSubmit = () => {
+		if (isCreate) {
+			createProduct(newProduct);
+		} else if (isUpdate) {
+			updateProduct(newProduct);
 		}
 	};
 
@@ -81,9 +82,10 @@ export default function ProductModal() {
 					<DialogContentText>{translations.name}</DialogContentText>
 					<TextField
 						required
-						label={translations.sampleName}
+						label={!product.name ? translations.sampleName : ''}
 						name={PRODUCT_ATTRIBUTES.name}
 						onChange={handleInputChange}
+						value={newProduct.name}
 					/>
 				</DialogContent>
 				<DialogContent>
@@ -94,7 +96,7 @@ export default function ProductModal() {
 						required
 						label={translations.category}
 						name={PRODUCT_ATTRIBUTES.category}
-						value={product.category}
+						value={newProduct.category}
 						onChange={handleSelectChange}
 					>
 						{productCategoriesKeys.map(key => (
@@ -123,11 +125,11 @@ export default function ProductModal() {
 					<Button
 						variant="contained"
 						onClick={() => {
-							handleSubmit(product);
+							handleSubmit();
 							handleOpenModal(false);
 						}}
 					>
-						{getButtonText()}
+						{submitButtonText}
 					</Button>
 				</DialogActions>
 			</Dialog>

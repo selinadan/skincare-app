@@ -13,11 +13,15 @@ import Rating from '@mui/material/Rating';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 
+import { MODAL_MODES } from 'Utils/const';
 import { translations } from 'Utils/translations';
 import { Product } from 'Utils/types';
 import { getAllProducts, deleteProduct } from 'Api/productsClient';
+import { useProductModal } from 'Components/Modal/ModalContext';
 
 export default function InventoryTable() {
+	const { handleOpenModal } = useProductModal();
+
 	const [products, setProducts] = useState<Product[]>([]);
 	const [error, setError] = useState('');
 
@@ -36,7 +40,10 @@ export default function InventoryTable() {
 		fetchProducts();
 	}, []);
 
-	const handleDelete = (id: number) => deleteProduct(id);
+	const handleEditProduct = (product: Product) =>
+		handleOpenModal(true, MODAL_MODES.update, product);
+
+	const handleDeleteProduct = (id: number) => deleteProduct(id);
 
 	return (
 		<TableContainer component={Paper}>
@@ -67,12 +74,18 @@ export default function InventoryTable() {
 									<Rating />
 								</TableCell>
 								<TableCell align="right">
-									<IconButton>
+									<IconButton
+										onClick={() =>
+											handleEditProduct(product)
+										}
+									>
 										<Edit />
 									</IconButton>
 									<IconButton
 										color="error"
-										onClick={() => handleDelete(product.id)}
+										onClick={() =>
+											handleDeleteProduct(product.id)
+										}
 									>
 										<Delete />
 									</IconButton>

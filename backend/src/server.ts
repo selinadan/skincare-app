@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.use(`${PATHS.api}${PATHS.products}`, productRoutes);
+app.use(`${PATHS.products}`, productRoutes);
 
 app.use((_request, response) => {
 	response.status(404).json({ message: 'Route not found' });

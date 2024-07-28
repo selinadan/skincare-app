@@ -20,7 +20,6 @@ export const getProduct = async (id: number) => {
 
 	try {
 		const response = await productApiClient.getClient().get(path);
-
 		return response.data;
 	} catch (error) {
 		console.error(`Error fetching product ID ${id}`, error);
@@ -42,7 +41,6 @@ export const createProduct = async (product: Product) => {
 
 export const updateProduct = async (product: Product) => {
 	const path = `${PATHS.root}${product.id}`;
-	console.log(path);
 
 	try {
 		const response = await productApiClient

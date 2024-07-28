@@ -1,5 +1,6 @@
 import { Database, OPEN_READWRITE } from 'sqlite3';
 import path from 'path';
+import fs from 'fs';
 
 import { DATABASE_PATH } from 'Utils/const';
 import { handleError } from 'Utils/errorUtils';
@@ -9,8 +10,11 @@ interface RunResult {
 	lastID: number;
 }
 
-const dbPath = path.resolve(__dirname, DATABASE_PATH);
-const db = new Database(dbPath, OPEN_READWRITE);
+if (!fs.existsSync(DATABASE_PATH)) {
+	console.error('Database file does not exist:', DATABASE_PATH);
+}
+
+const db = new Database(DATABASE_PATH, OPEN_READWRITE);
 
 function runAsync(sql: string, params: any[] = []): Promise<RunResult> {
 	return new Promise((resolve, reject) => {

@@ -18,7 +18,7 @@ router.get(PATHS.rootId, getProduct);
 // POST
 router.post(PATHS.root, createProduct);
 
-// PUT
+// PATCH
 router.patch(PATHS.rootId, updateProduct);
 
 // DELETE

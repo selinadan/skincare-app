@@ -16,11 +16,14 @@ exports.runQuery = runQuery;
 exports.allQuery = allQuery;
 exports.getQuery = getQuery;
 const sqlite3_1 = require("sqlite3");
-const path_1 = __importDefault(require("path"));
+const fs_1 = __importDefault(require("fs"));
 const const_1 = require("Utils/const");
 const errorUtils_1 = require("Utils/errorUtils");
-const dbPath = path_1.default.resolve(__dirname, const_1.DATABASE_PATH);
-const db = new sqlite3_1.Database(dbPath, sqlite3_1.OPEN_READWRITE);
+// const dbPath = path.resolve(__dirname, DATABASE_PATH);
+if (!fs_1.default.existsSync(const_1.DATABASE_PATH)) {
+    console.error('Database file does not exist:', const_1.DATABASE_PATH);
+}
+const db = new sqlite3_1.Database(const_1.DATABASE_PATH, sqlite3_1.OPEN_READWRITE);
 function runAsync(sql, params = []) {
     return new Promise((resolve, reject) => {
         db.run(sql, params, function (error) {

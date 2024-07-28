@@ -1,10 +1,6 @@
 import path from 'path';
 
-export const DATABASE_PATH = path.resolve(
-	process.cwd(),
-	'backend',
-	'database.sqlite'
-);
+export const DATABASE_PATH = path.resolve(process.cwd(), 'database.sqlite');
 
 export const FRONTEND_PORT = 5173;
 export const BACKEND_PORT = 3000;

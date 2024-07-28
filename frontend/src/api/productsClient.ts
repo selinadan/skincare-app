@@ -1,4 +1,4 @@
-import { PATHS } from 'Utils/const';
+import { PATHS } from 'Utils/constants';
 import { Product } from 'Utils/types';
 import { createApiClient } from './clientFactory';
 

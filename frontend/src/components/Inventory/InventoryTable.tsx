@@ -13,7 +13,7 @@ import Rating from '@mui/material/Rating';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 
-import { MODAL_MODES } from 'Utils/const';
+import { MODAL_MODES } from 'Utils/constants';
 import { translations } from 'Utils/translations';
 import { Product } from 'Utils/types';
 import { getAllProducts, deleteProduct } from 'Api/productsClient';

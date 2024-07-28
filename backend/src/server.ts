@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import morgan from 'morgan';
 
-import { PATHS, FRONTEND_URL } from 'Utils/const';
+import { PATHS, FRONTEND_URL } from 'Utils/constants';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

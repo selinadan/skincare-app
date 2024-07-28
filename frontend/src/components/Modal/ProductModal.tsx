@@ -15,7 +15,7 @@ import {
 	PRODUCT_CATEGORIES,
 	PRODUCT_ATTRIBUTES,
 	MODAL_MODES,
-} from 'Utils/const';
+} from 'Utils/constants';
 import { Product } from 'Utils/types';
 import { createProduct, updateProduct } from 'Api/productsClient';
 import { useProductModal } from './ModalContext';

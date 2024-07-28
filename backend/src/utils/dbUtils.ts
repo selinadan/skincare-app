@@ -2,7 +2,7 @@ import { Database, OPEN_READWRITE } from 'sqlite3';
 import path from 'path';
 import fs from 'fs';
 
-import { DATABASE_PATH } from 'Utils/const';
+import { DATABASE_PATH } from 'Utils/constants';
 import { handleError } from 'Utils/errorUtils';
 
 interface RunResult {

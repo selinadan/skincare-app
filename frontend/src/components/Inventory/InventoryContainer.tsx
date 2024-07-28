@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import InventoryTable from './InventoryTable';
 import { useProductModal } from 'Components/Modal/ModalContext';
 import { translations } from 'Utils/translations';
-import { MODAL_MODES } from 'Utils/const';
+import { MODAL_MODES } from 'Utils/constants';
 
 export default function InventoryContainer() {
 	const { handleOpenModal } = useProductModal();

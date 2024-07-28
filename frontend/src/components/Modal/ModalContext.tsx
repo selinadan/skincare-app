@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext, ReactNode } from 'react';
 
 import { Product } from 'Utils/types';
-import { PRODUCT_CATEGORIES } from 'Utils/const';
+import { PRODUCT_CATEGORIES } from 'Utils/constants';
 
 interface ModalContextProps {
 	isOpen: boolean;

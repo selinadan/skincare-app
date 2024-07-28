@@ -7,7 +7,7 @@ import {
 	getProduct,
 	deleteProduct,
 } from 'Controllers/productController';
-import { PATHS } from 'Utils/const';
+import { PATHS } from 'Utils/constants';
 
 const router = Router();
 

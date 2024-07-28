@@ -1,7 +1,7 @@
 import sqlite3 from 'sqlite3';
 import { open, Database } from 'sqlite';
 
-import { DATABASE_PATH } from 'Utils/const';
+import { DATABASE_PATH } from 'Utils/constants';
 import { runQuery, allQuery, getQuery } from 'Utils/dbUtils';
 import { Product } from 'Models/productModel';
 

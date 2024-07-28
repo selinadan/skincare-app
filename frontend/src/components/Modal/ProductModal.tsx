@@ -11,19 +11,18 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
 import { translations } from 'Utils/translations';
-import { PRODUCT_CATEGORIES, PRODUCT_ATTRIBUTES } from 'Utils/const';
+import {
+	PRODUCT_CATEGORIES,
+	PRODUCT_ATTRIBUTES,
+	MODAL_MODES,
+} from 'Utils/const';
 import { Product } from 'Utils/types';
 import { createProduct } from 'Api/productsClient';
+import { useProductModal } from './ModalContext';
 
-interface ProductModalProps {
-	isOpen: boolean;
-	handleShowModal: (shouldShow: boolean) => void;
-}
+export default function ProductModal() {
+	const { isOpen, mode, productContext, handleOpenModal } = useProductModal();
 
-export default function ProductModal({
-	isOpen,
-	handleShowModal,
-}: ProductModalProps) {
 	type ProductCategories = typeof PRODUCT_CATEGORIES;
 	type ProductCategoriesKeys = keyof ProductCategories;
 
@@ -62,12 +61,21 @@ export default function ProductModal({
 
 	const handleSubmit = (product: Product) => createProduct(product);
 
+	const getButtonText = () => {
+		if (mode === MODAL_MODES.create) {
+			return translations.addProduct;
+		}
+		if (mode === MODAL_MODES.update) {
+			return translations.editProduct;
+		}
+	};
+
 	return (
 		<div>
 			<Dialog
 				fullWidth
 				open={isOpen}
-				onClose={() => handleShowModal(false)}
+				onClose={() => handleOpenModal(false)}
 			>
 				<DialogContent>
 					<DialogContentText>{translations.name}</DialogContentText>
@@ -116,10 +124,10 @@ export default function ProductModal({
 						variant="contained"
 						onClick={() => {
 							handleSubmit(product);
-							handleShowModal(false);
+							handleOpenModal(false);
 						}}
 					>
-						{translations.addProduct}
+						{getButtonText()}
 					</Button>
 				</DialogActions>
 			</Dialog>

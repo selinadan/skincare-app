@@ -40,7 +40,7 @@ export const PRODUCT_ATTRIBUTES = {
 };
 
 export const MODAL_MODES = {
-	add: 'add',
-	edit: 'edit',
+	create: 'create',
+	update: 'update',
 	delete: 'delete',
 };

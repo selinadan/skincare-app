@@ -6,5 +6,6 @@ export const translations = {
 	price: 'Price',
 	rating: 'Rating',
 	addProduct: 'Add Product',
+	editProduct: 'Edit Product',
 	sampleName: 'Hada Labo Gokujyun Hydrating Foam Cleanser',
 };

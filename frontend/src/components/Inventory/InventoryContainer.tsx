@@ -2,13 +2,14 @@ import { useState, useCallback } from 'react';
 import Button from '@mui/material/Button';
 
 import InventoryTable from './InventoryTable';
-import ProductModal from '../ProductModal';
+import { useProductModal } from '../Modal/ModalContext';
 import { translations } from 'Utils/translations';
+import { MODAL_MODES } from 'Utils/const';
 
 export default function InventoryContainer() {
 	const [isOpen, setIsOpen] = useState(false);
 
-	const handleShowProductModal = useCallback((open: boolean) => {
+	const handleOpenModal = useCallback((open: boolean) => {
 		setIsOpen(open);
 	}, []);
 
@@ -16,14 +17,14 @@ export default function InventoryContainer() {
 		<div>
 			<Button
 				variant="contained"
-				onClick={() => handleShowProductModal(true)}
+				onClick={() => {
+					handleOpenModal(true);
+					useProductModal(isOpen, MODAL_MODES.create);
+				}}
 			>
 				{translations.addProduct}
 			</Button>
-			<ProductModal
-				isOpen={isOpen}
-				handleShowModal={handleShowProductModal}
-			/>
+			{/* <ProductModal isOpen={isOpen} handleOpenModal={handleOpenModal} /> */}
 			<InventoryTable />
 		</div>
 	);

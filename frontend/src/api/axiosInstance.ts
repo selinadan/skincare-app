@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import { API_BASE_URL } from 'Utils/const';
+import { PATHS } from 'Utils/const';
 
-const axiosInstance = axios.create({ baseURL: API_BASE_URL, timeout: 1000 });
+const axiosInstance = axios.create({ baseURL: PATHS.api, timeout: 1000 });
 
 export default axiosInstance;

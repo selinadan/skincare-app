@@ -1,8 +1,16 @@
-export const PORT = 5173;
+export const FRONTEND_PORT = 5173;
+export const BACKEND_PORT = 3000;
 
-export const API = '/api';
-export const API_BASE_URL = `http://localhost:${PORT}`;
-export const API_PRODUCTS = `${API}/products`;
+export const PATHS = {
+	root: '/',
+	id: ':id',
+	api: '/api',
+	products: '/products'
+};
+
+export const API_BASE_URL = `http://localhost`;
+export const FRONTEND_URL = `${API_BASE_URL}:${FRONTEND_PORT}`;
+export const BACKEND_URL = `${API_BASE_URL}:${BACKEND_PORT}`;
 
 export const OILY = 'oily';
 export const NORMAL = 'normal';

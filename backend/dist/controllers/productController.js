@@ -43,13 +43,14 @@ const createProduct = (request, response) => __awaiter(void 0, void 0, void 0, f
 });
 exports.createProduct = createProduct;
 const updateProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = request.body;
+    const product = request.body;
+    const productId = product.id;
     try {
-        yield productGateway_1.productGateway.updateProduct(request.body);
-        response.status(201).send(`Product ID ${id} updated`);
+        yield productGateway_1.productGateway.updateProduct(product);
+        response.status(201).send(`Product ID ${productId} updated`);
     }
     catch (error) {
-        response.status(500).send(`Failed to update product ID ${id}`);
+        response.status(500).send(`Failed to update product ID ${productId}`);
     }
 });
 exports.updateProduct = updateProduct;

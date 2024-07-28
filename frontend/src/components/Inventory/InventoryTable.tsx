@@ -60,19 +60,20 @@ export default function InventoryTable() {
 									},
 								}}
 							>
-								<TableCell>
-									{product.name}
-								</TableCell>
+								<TableCell>{product.name}</TableCell>
 								<TableCell>{product.category}</TableCell>
 								<TableCell>{product.price}</TableCell>
 								<TableCell>
 									<Rating />
 								</TableCell>
-								<TableCell align='right'>
+								<TableCell align="right">
 									<IconButton>
 										<Edit />
 									</IconButton>
-									<IconButton color="error" onClick={() => handleDelete(product.id)}>
+									<IconButton
+										color="error"
+										onClick={() => handleDelete(product.id)}
+									>
 										<Delete />
 									</IconButton>
 								</TableCell>

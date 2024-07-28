@@ -7,7 +7,9 @@
 		"dev": "vite",
 		"build": "tsc -b && vite build",
 		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview"
+		"preview": "vite preview",
+		"prettier": "prettier --write .",
+		"prettier:check": "prettier --check ."
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.4",
@@ -38,7 +40,6 @@
 		"@vitejs/plugin-react": "^4.3.1",
 		"@vitejs/plugin-react-swc": "^3.5.0",
 		"concurrently": "^8.2.2",
-		"eslint": "^8.57.0",
 		"eslint-plugin-react-hooks": "^4.6.2",
 		"eslint-plugin-react-refresh": "^0.4.7",
 		"react-refresh": "^0.14.2",

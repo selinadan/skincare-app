@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,21 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.runQuery = runQuery;
-exports.allQuery = allQuery;
-exports.getQuery = getQuery;
-const sqlite3_1 = require("sqlite3");
-const fs_1 = __importDefault(require("fs"));
-const constants_1 = require("Utils/constants");
-const errorUtils_1 = require("Utils/errorUtils");
-if (!fs_1.default.existsSync(constants_1.DATABASE_PATH)) {
-    console.error('Database file does not exist:', constants_1.DATABASE_PATH);
+import { Database, OPEN_READWRITE } from 'sqlite3';
+import fs from 'fs';
+import { DATABASE_PATH } from 'Utils/constants';
+import { handleError } from 'Utils/errorUtils';
+if (!fs.existsSync(DATABASE_PATH)) {
+    console.error('Database file does not exist:', DATABASE_PATH);
 }
-const db = new sqlite3_1.Database(constants_1.DATABASE_PATH, sqlite3_1.OPEN_READWRITE);
+const db = new Database(DATABASE_PATH, OPEN_READWRITE);
 function runAsync(sql, params = []) {
     return new Promise((resolve, reject) => {
         db.run(sql, params, function (error) {
@@ -41,34 +33,34 @@ function allAsync(sql, params = []) {
 function getAsync(sql, params = []) {
     return new Promise((resolve, reject) => db.get(sql, params, (error, row) => error ? reject(error) : resolve(row)));
 }
-function runQuery(sql_1) {
+export function runQuery(sql_1) {
     return __awaiter(this, arguments, void 0, function* (sql, params = []) {
         try {
             const result = yield runAsync(sql, params);
             return { lastID: result.lastID, changes: result.changes };
         }
         catch (error) {
-            (0, errorUtils_1.handleError)(error);
+            handleError(error);
         }
     });
 }
-function allQuery(sql_1) {
+export function allQuery(sql_1) {
     return __awaiter(this, arguments, void 0, function* (sql, params = []) {
         try {
             return yield allAsync(sql, params);
         }
         catch (error) {
-            (0, errorUtils_1.handleError)(error);
+            handleError(error);
         }
     });
 }
-function getQuery(sql_1) {
+export function getQuery(sql_1) {
     return __awaiter(this, arguments, void 0, function* (sql, params = []) {
         try {
             return yield getAsync(sql, params);
         }
         catch (error) {
-            (0, errorUtils_1.handleError)(error);
+            handleError(error);
         }
     });
 }

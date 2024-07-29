@@ -1,9 +1,9 @@
-import productRoutes from 'Routes/productRoutes';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import { PATHS, FRONTEND_URL, STATUS } from 'Utils/constants';
+import productRoutes from 'Routes/productRoutes';
 import { morganFormat, logger } from 'Utils/logger';
 
 const app = express();

@@ -1,7 +1,15 @@
 import { createLogger, format, transports } from 'winston';
+import chalk from 'chalk';
 import morgan from 'morgan';
 
 const { combine, timestamp, printf, errors } = format;
+
+const levelColors: { [key: string]: any } = {
+	info: chalk.green,
+	warn: chalk.yellow,
+	error: chalk.red,
+	debug: chalk.cyan,
+};
 
 const logFormat = printf(({ level, message, timestamp, stack }) => {
 	if (typeof message === 'object') {

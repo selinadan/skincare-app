@@ -1,18 +1,9 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import { productGateway } from 'Gateways/productGateway';
 import { STATUS } from 'Utils/constants';
 import { logger } from 'Utils/logger';
-export const getAllProducts = (_request, response) => __awaiter(void 0, void 0, void 0, function* () {
+export const getAllProducts = async (_request, response) => {
     try {
-        const products = yield productGateway.getAllProducts();
+        const products = await productGateway.getAllProducts();
         logger.info('Fetched all products:', products);
         response.status(STATUS.OK).json(products);
     }
@@ -20,11 +11,11 @@ export const getAllProducts = (_request, response) => __awaiter(void 0, void 0, 
         logger.error('Failed to fetch all products', error);
         response.status(STATUS.INTERNAL_SERVER_ERROR);
     }
-});
-export const getProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const getProduct = async (request, response) => {
     const id = request.body;
     try {
-        const product = yield productGateway.getProductById(id);
+        const product = await productGateway.getProductById(id);
         logger.info('Fetched product', product);
         response.status(STATUS.OK).json(product);
     }
@@ -32,11 +23,11 @@ export const getProduct = (request, response) => __awaiter(void 0, void 0, void 
         console.error(`Failed to fetch product ID ${id}`, error);
         response.status(STATUS.INTERNAL_SERVER_ERROR);
     }
-});
-export const createProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const createProduct = async (request, response) => {
     try {
         const product = request.body;
-        yield productGateway.createProduct(product);
+        await productGateway.createProduct(product);
         logger.info('Product created', product);
         response.status(STATUS.CREATED).json(product);
     }
@@ -44,12 +35,12 @@ export const createProduct = (request, response) => __awaiter(void 0, void 0, vo
         logger.error('Failed to create product', error);
         response.status(STATUS.INTERNAL_SERVER_ERROR);
     }
-});
-export const updateProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const updateProduct = async (request, response) => {
     const product = request.body;
     const productId = product.id;
     try {
-        yield productGateway.updateProduct(product);
+        await productGateway.updateProduct(product);
         logger.info(`Product ID ${productId} updated`, product);
         response.status(STATUS.CREATED).json(product);
     }
@@ -57,11 +48,11 @@ export const updateProduct = (request, response) => __awaiter(void 0, void 0, vo
         logger.error(`Failed to update product ID ${productId}`, error);
         response.status(STATUS.INTERNAL_SERVER_ERROR);
     }
-});
-export const deleteProduct = (request, response) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const deleteProduct = async (request, response) => {
     const id = request.body;
     try {
-        yield productGateway.deleteProduct(id);
+        await productGateway.deleteProduct(id);
         logger.info(`Product ID ${id} deleted`, id);
         response.status(STATUS.NO_CONTENT).send(id);
     }
@@ -69,4 +60,4 @@ export const deleteProduct = (request, response) => __awaiter(void 0, void 0, vo
         logger.error(`Failed to delete product ID ${id}`, error);
         response.status(STATUS.INTERNAL_SERVER_ERROR);
     }
-});
+};

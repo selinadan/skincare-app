@@ -26,6 +26,12 @@ app.use((request, _response, next) => {
     logger.info(`Request received: ${request.method} ${request.url}`);
     next();
 });
+app.use((error, request, response) => {
+    logger.error(`500 Internal Server Error: ${request.method} ${request.url} - ${error.message}`);
+    response
+        .status(STATUS.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Internal Server Error' });
+});
 // Start server
 app.listen(PORT, () => {
     logger.info(`Server is running on port ${PORT}`);

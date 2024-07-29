@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
@@ -26,14 +26,23 @@ app.use(
 // Routes
 app.use(PATHS.products, productRoutes);
 
-app.use((request, response) => {
+app.use((request: Request, response: Response) => {
 	logger.warn(`404 Not Found: ${request.method} ${request.url}`);
 	response.status(STATUS.NOT_FOUND).json({ message: 'Route not found' });
 });
 
-app.use((request, _response, next) => {
+app.use((request: Request, _response: Response, next: NextFunction) => {
 	logger.info(`Request received: ${request.method} ${request.url}`);
 	next();
+});
+
+app.use((error: Error, request: Request, response: Response) => {
+	logger.error(
+		`500 Internal Server Error: ${request.method} ${request.url} - ${error.message}`
+	);
+	response
+		.status(STATUS.INTERNAL_SERVER_ERROR)
+		.json({ message: 'Internal Server Error' });
 });
 
 // Start server

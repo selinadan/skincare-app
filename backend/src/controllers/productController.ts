@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 
 import { productGateway } from 'Gateways/productGateway';
+import { STATUS } from 'Utils/constants';
+import { logger } from 'Utils/logger';
 
 export const getAllProducts = async (
 	_request: Request,
@@ -8,9 +10,11 @@ export const getAllProducts = async (
 ): Promise<void> => {
 	try {
 		const products = await productGateway.getAllProducts();
-		response.status(201).json(products);
+		logger.info('Fetched all products:', products);
+		response.status(STATUS.OK).json(products);
 	} catch (error) {
-		response.status(500).send('Failed to fetch all products');
+		console.error('Failed to fetch all products', error);
+		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };
 
@@ -22,9 +26,11 @@ export const getProduct = async (
 
 	try {
 		const product = await productGateway.getProductById(id);
-		response.status(201).json(product);
+		console.log('Fetched product', product);
+		response.status(STATUS.OK).json(product);
 	} catch (error) {
-		response.status(500).send(`Failed to fetch product ID ${id}`);
+		console.error(`Failed to fetch product ID ${id}`, error);
+		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };
 
@@ -33,10 +39,13 @@ export const createProduct = async (
 	response: Response
 ): Promise<void> => {
 	try {
-		await productGateway.createProduct(request.body);
-		response.status(201).send('Product created');
+		const product = request.body;
+		await productGateway.createProduct(product);
+		console.log('Product created', product);
+		response.status(STATUS.CREATED).json(product);
 	} catch (error) {
-		response.status(500).send('Failed to create product');
+		console.error('Failed to create product', error);
+		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };
 
@@ -44,13 +53,16 @@ export const updateProduct = async (
 	request: Request,
 	response: Response
 ): Promise<void> => {
-	const id = request.body;
+	const product = request.body;
+	const productId = product.id;
 
 	try {
-		await productGateway.updateProduct(request.body);
-		response.status(201).send(`Product ID ${id} updated`);
+		await productGateway.updateProduct(product);
+		console.log(`Product ID ${productId} updated`, product);
+		response.status(STATUS.CREATED).json(product);
 	} catch (error) {
-		response.status(500).send(`Failed to update product ID ${id}`);
+		console.error(`Failed to update product ID ${productId}`, error);
+		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };
 
@@ -62,8 +74,10 @@ export const deleteProduct = async (
 
 	try {
 		await productGateway.deleteProduct(id);
-		response.status(201).send(`Product ID ${id} deleted`);
+		console.log(`Product ID ${id} deleted`, id);
+		response.status(STATUS.NO_CONTENT).send(id);
 	} catch (error) {
-		response.status(500).send(`Failed to delete product ID ${id}`);
+		console.log(`Failed to delete product ID ${id}`, error);
+		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };

@@ -6,6 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 import TextField from '@mui/material/TextField';
 
@@ -80,9 +81,9 @@ export default function RoutineTable() {
 								<Rating />
 							</TableCell>
 							<TableCell>
-								<Button color="error">
+								<IconButton color="error">
 									<Clear />
-								</Button>
+								</IconButton>
 							</TableCell>
 						</TableRow>
 					))}

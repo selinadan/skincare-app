@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,17 +7,21 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
-import TextField from '@mui/material/TextField';
 
-import Clear from '@mui/icons-material/Clear';
+import Delete from '@mui/icons-material/Delete';
+import Edit from '@mui/icons-material/Edit';
 
+import { MODAL_MODES } from 'Utils/constants';
 import { translations } from 'Utils/translations';
 import { Product } from 'Utils/types';
-import { getAllProducts } from 'Api/productsClient';
+import { getAllProducts, deleteProduct } from 'Api/productsClient';
+import { useProductModal } from 'Components/Modal/ModalContext';
 
 export default function InventoryTable() {
+	const { handleOpenModal } = useProductModal();
+
 	const [products, setProducts] = useState<Product[]>([]);
 	const [error, setError] = useState('');
 
@@ -36,12 +40,16 @@ export default function InventoryTable() {
 		fetchProducts();
 	}, []);
 
+	const handleEditProduct = (product: Product) =>
+		handleOpenModal(true, MODAL_MODES.update, product);
+
+	const handleDeleteProduct = (id: number) => deleteProduct(id);
+
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
 				<TableHead>
 					<TableRow>
-						<TableCell align="right">Step</TableCell>
 						<TableCell>{translations.name}</TableCell>
 						<TableCell>{translations.category}</TableCell>
 						<TableCell>{translations.price}</TableCell>
@@ -59,37 +67,28 @@ export default function InventoryTable() {
 									},
 								}}
 							>
-								<TableCell
-									component="th"
-									scope="row"
-									align="right"
-								>
-									{index}
-								</TableCell>
-								<TableCell component="th" scope="row">
-									<TextField
-										id="name"
-										label="Outlined"
-										variant="standard"
-									>
-										{product.name}
-									</TextField>
-								</TableCell>
+								<TableCell>{product.name}</TableCell>
+								<TableCell>{product.category}</TableCell>
 								<TableCell>{product.price}</TableCell>
-								<TextField
-									id="price"
-									label="Outlined"
-									variant="standard"
-								>
-									{product.price}
-								</TextField>
 								<TableCell>
 									<Rating />
 								</TableCell>
-								<TableCell>
-									<Button color="error">
-										<Clear />
-									</Button>
+								<TableCell align="right">
+									<IconButton
+										onClick={() =>
+											handleEditProduct(product)
+										}
+									>
+										<Edit />
+									</IconButton>
+									<IconButton
+										color="error"
+										onClick={() =>
+											handleDeleteProduct(product.id)
+										}
+									>
+										<Delete />
+									</IconButton>
 								</TableCell>
 							</TableRow>
 						))}

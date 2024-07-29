@@ -15,7 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.productGateway = void 0;
 const sqlite3_1 = __importDefault(require("sqlite3"));
 const sqlite_1 = require("sqlite");
-const const_1 = require("Utils/const");
+const constants_1 = require("Utils/constants");
+const dbUtils_1 = require("Utils/dbUtils");
 class ProductGateway {
     constructor() {
         this.allColumns = 'id, name, price, category';
@@ -23,7 +24,7 @@ class ProductGateway {
     }
     init() {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = `
+            const sql = `
 			CREATE TABLE IF NOT EXISTS products (
 				id INTEGER PRIMARY KEY AUTOINCREMENT,
 				name TEXT NOT NULL,
@@ -31,29 +32,29 @@ class ProductGateway {
 				category TEXT NOT NULL
 			)
 		`;
-            this.db = yield sqlite_1.open({
-                filename: const_1.DATABASE_PATH,
+            this.db = yield (0, sqlite_1.open)({
+                filename: constants_1.DATABASE_PATH,
                 driver: sqlite3_1.default.Database,
             });
-            yield this.db.exec(query);
+            yield this.db.exec(sql);
         });
     }
     getAllProducts() {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = `SELECT id, name, price, category FROM products`;
-            return this.db.all(query);
+            const sql = `SELECT id, name, price, category FROM products`;
+            return (0, dbUtils_1.allQuery)(sql);
         });
     }
     getProductById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = `SELECT ${this.allColumns} FROM products WHERE id = ?`;
-            return this.db.get(query, [id]);
+            const sql = `SELECT ${this.allColumns} FROM products WHERE id = ?`;
+            return (0, dbUtils_1.getQuery)(sql, [id]);
         });
     }
     createProduct(product) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = `INSERT INTO products (${this.allColumns}) VALUES (?, ?, ?, ?)`;
-            const result = yield this.db.run(query, [
+            const sql = `INSERT INTO products (${this.allColumns}) VALUES (?, ?, ?, ?)`;
+            const result = yield (0, dbUtils_1.runQuery)(sql, [
                 product.id,
                 product.name,
                 product.price,
@@ -64,8 +65,8 @@ class ProductGateway {
     }
     updateProduct(product) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = `UPDATE products SET name = ?, price = ?, category = ? WHERE id = ?`;
-            yield this.db.run(query, [
+            const sql = `UPDATE products SET name = ?, price = ?, category = ? WHERE id = ?`;
+            yield (0, dbUtils_1.runQuery)(sql, [
                 product.name,
                 product.price,
                 product.category,
@@ -75,8 +76,8 @@ class ProductGateway {
     }
     deleteProduct(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = `DELETE FROM products WHERE id = ?`;
-            yield this.db.run(query, [id]);
+            const sql = `DELETE FROM products WHERE id = ?`;
+            yield (0, dbUtils_1.runQuery)(sql, [id]);
         });
     }
 }

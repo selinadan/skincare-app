@@ -7,22 +7,21 @@ import {
 	getProduct,
 	deleteProduct,
 } from 'Controllers/productController';
-import { PATHS } from 'Utils/const';
+import { PATHS } from 'Utils/constants';
 
 const router = Router();
-const PATH_ID = `${PATHS.root}${PATHS.id}`;
 
 //GET
 router.get(PATHS.root, getAllProducts);
-router.get(PATH_ID, getProduct);
+router.get(PATHS.rootId, getProduct);
 
 // POST
 router.post(PATHS.root, createProduct);
 
-// PUT
-router.put(PATH_ID, updateProduct);
+// PATCH
+router.patch(PATHS.rootId, updateProduct);
 
 // DELETE
-router.delete(PATH_ID, deleteProduct);
+router.delete(PATHS.rootId, deleteProduct);
 
 export default router;

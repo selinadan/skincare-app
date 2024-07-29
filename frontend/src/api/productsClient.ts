@@ -1,4 +1,4 @@
-import { PATHS } from 'Utils/const';
+import { PATHS } from 'Utils/constants';
 import { Product } from 'Utils/types';
 import { createApiClient } from './clientFactory';
 
@@ -16,10 +16,10 @@ export const getAllProducts = async () => {
 };
 
 export const getProduct = async (id: number) => {
-	try {
-		const path = `${PATHS.root}${id}`;
-		const response = await productApiClient.getClient().get(path);
+	const path = `${PATHS.root}${id}`;
 
+	try {
+		const response = await productApiClient.getClient().get(path);
 		return response.data;
 	} catch (error) {
 		console.error(`Error fetching product ID ${id}`, error);
@@ -29,7 +29,9 @@ export const getProduct = async (id: number) => {
 
 export const createProduct = async (product: Product) => {
 	try {
-		const response = await productApiClient.getClient().post(PATHS.root, product);
+		const response = await productApiClient
+			.getClient()
+			.post(PATHS.root, product);
 		return response.data;
 	} catch (error) {
 		console.error(`Error creating product`, error);
@@ -38,8 +40,12 @@ export const createProduct = async (product: Product) => {
 };
 
 export const updateProduct = async (product: Product) => {
+	const path = `${PATHS.root}${product.id}`;
+
 	try {
-		const response = await productApiClient.getClient().patch(PATHS.root, product);
+		const response = await productApiClient
+			.getClient()
+			.patch(path, product);
 		return response.data;
 	} catch (error) {
 		console.error(`Error updating product ID ${product.id}`, error);
@@ -48,10 +54,10 @@ export const updateProduct = async (product: Product) => {
 };
 
 export const deleteProduct = async (id: number) => {
-	try {
-		const path = `${PATHS.root}${id}`;
-		const response = await productApiClient.getClient().delete(path);
+	const path = `${PATHS.root}${id}`;
 
+	try {
+		const response = await productApiClient.getClient().delete(path);
 		return response.data;
 	} catch (error) {
 		console.error(`Error deleting product ID ${id}`, error);

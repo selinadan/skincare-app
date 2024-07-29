@@ -3,7 +3,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import { PATHS, FRONTEND_URL } from 'Utils/const';
+import { PATHS, FRONTEND_URL, STATUS } from 'Utils/constants';
+import { morganFormat, logger } from 'Utils/logger';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,27 +12,31 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morganFormat);
 
 // CORS
-app.use(cors({
-	origin: FRONTEND_URL,
-	methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-	credentials: true,
-}));
+app.use(
+	cors({
+		origin: FRONTEND_URL,
+		methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+		credentials: true,
+	})
+);
 
 // Routes
 app.use(PATHS.products, productRoutes);
 
-app.use((_request, response) => {
-	response.status(404).json({ message: 'Route not found' });
+app.use((request, response) => {
+	logger.warn(`404 Not Found: ${request.method} ${request.url}`);
+	response.status(STATUS.NOT_FOUND).json({ message: 'Route not found' });
 });
 
 app.use((request, _response, next) => {
-	console.log(`Request received: ${request.method} ${request.url}`);
+	logger.info(`Request received: ${request.method} ${request.url}`);
 	next();
 });
 
 // Start server
 app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
+	logger.info(`Server is running on port ${PORT}`);
 });

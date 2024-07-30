@@ -41,7 +41,7 @@ export const createProduct = async (
 	try {
 		const product = request.body;
 		await productGateway.createProduct(product);
-		logger.info('Product created', product);
+		logger.info('Product created');
 		response.status(STATUS.CREATED).json(product);
 	} catch (error) {
 		logger.error('Failed to create product', error);
@@ -58,7 +58,7 @@ export const updateProduct = async (
 
 	try {
 		await productGateway.updateProduct(product);
-		logger.info(`Product ID ${productId} updated`, product);
+		logger.info(`Product ID ${productId} updated`);
 		response.status(STATUS.CREATED).json(product);
 	} catch (error) {
 		logger.error(`Failed to update product ID ${productId}`, error);
@@ -74,7 +74,7 @@ export const deleteProduct = async (
 
 	try {
 		await productGateway.deleteProduct(id);
-		logger.info(`Product ID ${id} deleted`, id);
+		logger.info(`Product ID ${id} deleted`);
 		response.sendStatus(STATUS.OK);
 	} catch (error) {
 		logger.error(`Failed to delete product ID ${id}`, error);

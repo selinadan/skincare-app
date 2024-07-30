@@ -10,7 +10,7 @@ export const getAllProducts = async (
 ): Promise<void> => {
 	try {
 		const products = await productGateway.getAllProducts();
-		logger.info('Fetched all products:', products);
+		logger.info('Fetched all products');
 		response.status(STATUS.OK).json(products);
 	} catch (error) {
 		logger.error('Failed to fetch all products', error);
@@ -26,7 +26,7 @@ export const getProduct = async (
 
 	try {
 		const product = await productGateway.getProductById(id);
-		logger.info('Fetched product', product);
+		logger.info(`Fetched product ID ${product.id}`);
 		response.status(STATUS.OK).json(product);
 	} catch (error) {
 		console.error(`Failed to fetch product ID ${id}`, error);
@@ -70,12 +70,12 @@ export const deleteProduct = async (
 	request: Request,
 	response: Response
 ): Promise<void> => {
-	const id = request.body;
+	const id = parseInt(request.query.id as string);
 
 	try {
 		await productGateway.deleteProduct(id);
 		logger.info(`Product ID ${id} deleted`, id);
-		response.status(STATUS.NO_CONTENT).send(id);
+		response.sendStatus(STATUS.OK);
 	} catch (error) {
 		logger.error(`Failed to delete product ID ${id}`, error);
 		response.status(STATUS.INTERNAL_SERVER_ERROR);

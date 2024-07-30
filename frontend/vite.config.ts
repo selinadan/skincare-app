@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { resolve } from 'path';
-import { BACKEND_URL } from '../frontend/src/utils/const';
+import { BACKEND_URL } from '../frontend/src/utils/constants';
 
 export default defineConfig({
 	plugins: [react()],

@@ -57,7 +57,12 @@ export const deleteProduct = async (id: number) => {
 	const path = `${PATHS.root}${id}`;
 
 	try {
-		const response = await productApiClient.getClient().delete(path);
+		// const response = await productApiClient.getClient().delete(path);
+		const response = await productApiClient.getClient().delete(path, {
+			params: {
+				id: id,
+			},
+		});
 		return response.data;
 	} catch (error) {
 		console.error(`Error deleting product ID ${id}`, error);

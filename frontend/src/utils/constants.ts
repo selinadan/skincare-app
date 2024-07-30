@@ -3,7 +3,7 @@ export const BACKEND_PORT = 3000;
 
 export const PATHS = {
 	root: '/',
-	id: ':id',
+	id: '/:id',
 	api: '/api',
 	products: '/products',
 };

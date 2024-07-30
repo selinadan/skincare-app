@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import TableHead from '@mui/material/TableHead';
 import IconButton from '@mui/material/IconButton';
 import Rating from '@mui/material/Rating';
 
@@ -18,6 +13,13 @@ import { translations } from 'Utils/translations';
 import { Product } from 'Utils/types';
 import { getAllProducts, deleteProduct } from 'Api/productsClient';
 import { useProductModal } from 'Components/Modal/ModalContext';
+import {
+	StyledTableContainer,
+	StyledTable,
+	StyledTableBody,
+	StyledTableCell,
+	StyledTableFooter,
+} from 'Components/common/StyledInventory';
 
 export default function InventoryTable() {
 	const { handleOpenModal } = useProductModal();
@@ -45,18 +47,28 @@ export default function InventoryTable() {
 
 	const handleDeleteProduct = (id: number) => deleteProduct(id);
 
+	const getPriceTotal = () =>
+		products.reduce((acc, product) => {
+			return acc + product.price;
+		}, 0);
+
 	return (
-		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 650 }} aria-label="simple table">
+		<StyledTableContainer>
+			<StyledTable>
 				<TableHead>
 					<TableRow>
-						<TableCell>{translations.name}</TableCell>
-						<TableCell>{translations.category}</TableCell>
-						<TableCell>{translations.price}</TableCell>
-						<TableCell>{translations.rating}</TableCell>
+						<StyledTableCell>{translations.name}</StyledTableCell>
+						<StyledTableCell>
+							{translations.category}
+						</StyledTableCell>
+						<StyledTableCell>{translations.price}</StyledTableCell>
+						<StyledTableCell>{translations.rating}</StyledTableCell>
+						<StyledTableCell>
+							{translations.actions}
+						</StyledTableCell>
 					</TableRow>
 				</TableHead>
-				<TableBody>
+				<StyledTableBody>
 					{products &&
 						products.map((product, index) => (
 							<TableRow
@@ -67,13 +79,19 @@ export default function InventoryTable() {
 									},
 								}}
 							>
-								<TableCell>{product.name}</TableCell>
-								<TableCell>{product.category}</TableCell>
-								<TableCell>{product.price}</TableCell>
-								<TableCell>
+								<StyledTableCell>
+									{product.name}
+								</StyledTableCell>
+								<StyledTableCell>
+									{product.category}
+								</StyledTableCell>
+								<StyledTableCell>
+									{product.price}
+								</StyledTableCell>
+								<StyledTableCell>
 									<Rating />
-								</TableCell>
-								<TableCell align="right">
+								</StyledTableCell>
+								<StyledTableCell align="right">
 									<IconButton
 										onClick={() =>
 											handleEditProduct(product)
@@ -82,18 +100,22 @@ export default function InventoryTable() {
 										<Edit />
 									</IconButton>
 									<IconButton
-										color="error"
 										onClick={() =>
 											handleDeleteProduct(product.id)
 										}
 									>
 										<Delete />
 									</IconButton>
-								</TableCell>
+								</StyledTableCell>
 							</TableRow>
 						))}
-				</TableBody>
-			</Table>
-		</TableContainer>
+				</StyledTableBody>
+				<StyledTableFooter>
+					<StyledTableCell>
+						{`${translations.total}: ${translations.currency}${getPriceTotal()}`}
+					</StyledTableCell>
+				</StyledTableFooter>
+			</StyledTable>
+		</StyledTableContainer>
 	);
 }

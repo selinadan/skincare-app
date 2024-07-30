@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import './App.css';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { theme } from 'Components/common/MuiTheme';
 
 import ProductModal from 'Components/Modal/ProductModal';
 import ModalProvider from 'Components/Modal/ModalContext';
@@ -10,15 +13,25 @@ import NavBar from 'Components/NavBar';
 
 export default function App() {
 	return (
-		<Router>
-			<NavBar />
-			<ModalProvider>
-				<Routes>
-					<Route path="/routine" element={<RoutineContainer />} />
-					<Route path="/inventory" element={<InventoryContainer />} />
-				</Routes>
-				<ProductModal />
-			</ModalProvider>
-		</Router>
+		<ThemeProvider theme={theme}>
+			<CssBaseline>
+				<Router>
+					<NavBar />
+					<ModalProvider>
+						<Routes>
+							<Route
+								path="/routine"
+								element={<RoutineContainer />}
+							/>
+							<Route
+								path="/inventory"
+								element={<InventoryContainer />}
+							/>
+						</Routes>
+						<ProductModal />
+					</ModalProvider>
+				</Router>
+			</CssBaseline>
+		</ThemeProvider>
 	);
 }

@@ -37,16 +37,16 @@ class ProductGateway {
 		return allQuery(sql);
 	}
 
-	async getProductById(id: number): Promise<Product | undefined> {
+	async getProductById(id: number): Promise<Product> {
 		const sql = `SELECT ${this.allColumns} FROM products WHERE id = ?`;
 
 		return getQuery(sql, [id]);
 	}
 
 	async createProduct(product: Product): Promise<Product> {
-		const sql = `INSERT INTO products (${this.allColumns}) VALUES (?, ?, ?, ?)`;
+		const columns = 'name, price, category';
+		const sql = `INSERT INTO products (${columns}) VALUES (?, ?, ?)`;
 		const result = await runQuery(sql, [
-			product.id,
 			product.name,
 			product.price,
 			product.category,

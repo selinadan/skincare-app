@@ -10,10 +10,10 @@ export const getAllProducts = async (
 ): Promise<void> => {
 	try {
 		const products = await productGateway.getAllProducts();
-		logger.info('Fetched all products:', products);
+		logger.info('Fetched all products');
 		response.status(STATUS.OK).json(products);
 	} catch (error) {
-		console.error('Failed to fetch all products', error);
+		logger.error('Failed to fetch all products', error);
 		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };
@@ -26,7 +26,7 @@ export const getProduct = async (
 
 	try {
 		const product = await productGateway.getProductById(id);
-		console.log('Fetched product', product);
+		logger.info(`Fetched product ID ${product.id}`);
 		response.status(STATUS.OK).json(product);
 	} catch (error) {
 		console.error(`Failed to fetch product ID ${id}`, error);
@@ -41,10 +41,10 @@ export const createProduct = async (
 	try {
 		const product = request.body;
 		await productGateway.createProduct(product);
-		console.log('Product created', product);
+		logger.info('Product created');
 		response.status(STATUS.CREATED).json(product);
 	} catch (error) {
-		console.error('Failed to create product', error);
+		logger.error('Failed to create product', error);
 		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };
@@ -58,10 +58,10 @@ export const updateProduct = async (
 
 	try {
 		await productGateway.updateProduct(product);
-		console.log(`Product ID ${productId} updated`, product);
+		logger.info(`Product ID ${productId} updated`);
 		response.status(STATUS.CREATED).json(product);
 	} catch (error) {
-		console.error(`Failed to update product ID ${productId}`, error);
+		logger.error(`Failed to update product ID ${productId}`, error);
 		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };
@@ -70,14 +70,14 @@ export const deleteProduct = async (
 	request: Request,
 	response: Response
 ): Promise<void> => {
-	const id = request.body;
+	const id = parseInt(request.query.id as string);
 
 	try {
 		await productGateway.deleteProduct(id);
-		console.log(`Product ID ${id} deleted`, id);
-		response.status(STATUS.NO_CONTENT).send(id);
+		logger.info(`Product ID ${id} deleted`);
+		response.sendStatus(STATUS.OK);
 	} catch (error) {
-		console.log(`Failed to delete product ID ${id}`, error);
+		logger.error(`Failed to delete product ID ${id}`, error);
 		response.status(STATUS.INTERNAL_SERVER_ERROR);
 	}
 };

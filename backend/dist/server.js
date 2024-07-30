@@ -1,36 +1,38 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const productRoutes_1 = __importDefault(require("Routes/productRoutes"));
-const express_1 = __importDefault(require("express"));
-const body_parser_1 = __importDefault(require("body-parser"));
-const cors_1 = __importDefault(require("cors"));
-const constants_1 = require("Utils/constants");
-const logger_1 = require("Utils/logger");
-const app = (0, express_1.default)();
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import { PATHS, FRONTEND_URL, STATUS } from 'Utils/constants';
+import productRoutes from 'Routes/productRoutes';
+import { morganFormat, logger } from 'Utils/logger';
+const app = express();
 const PORT = process.env.PORT || 3000;
 // Middleware
-app.use(logger_1.morganFormat);
-app.use(body_parser_1.default.json());
-app.use(body_parser_1.default.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morganFormat);
 // CORS
-app.use((0, cors_1.default)({
-    origin: constants_1.FRONTEND_URL,
+app.use(cors({
+    origin: FRONTEND_URL,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 }));
 // Routes
-app.use(constants_1.PATHS.products, productRoutes_1.default);
-app.use((_request, response) => {
-    response.status(constants_1.STATUS.NOT_FOUND).json({ message: 'Route not found' });
+app.use(PATHS.products, productRoutes);
+app.use((request, response) => {
+    logger.warn(`404 Not Found: ${request.method} ${request.url}`);
+    response.status(STATUS.NOT_FOUND).json({ message: 'Route not found' });
 });
 app.use((request, _response, next) => {
-    console.log(`Request received: ${request.method} ${request.url}`);
+    logger.info(`Request received: ${request.method} ${request.url}`);
     next();
+});
+app.use((error, request, response) => {
+    logger.error(`500 Internal Server Error: ${request.method} ${request.url} - ${error.message}`);
+    response
+        .status(STATUS.INTERNAL_SERVER_ERROR)
+        .json({ message: 'Internal Server Error' });
 });
 // Start server
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    logger.info(`Server is running on port ${PORT}`);
 });

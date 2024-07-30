@@ -1,16 +1,14 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const productController_1 = require("Controllers/productController");
-const constants_1 = require("Utils/constants");
-const router = (0, express_1.Router)();
+import { Router } from 'express';
+import { createProduct, updateProduct, getAllProducts, getProduct, deleteProduct, } from 'Controllers/productController';
+import { PATHS } from 'Utils/constants';
+const router = Router();
 //GET
-router.get(constants_1.PATHS.root, productController_1.getAllProducts);
-router.get(constants_1.PATHS.rootId, productController_1.getProduct);
+router.get(PATHS.root, getAllProducts);
+router.get(PATHS.rootId, getProduct);
 // POST
-router.post(constants_1.PATHS.root, productController_1.createProduct);
+router.post(PATHS.root, createProduct);
 // PATCH
-router.patch(constants_1.PATHS.rootId, productController_1.updateProduct);
+router.patch(PATHS.rootId, updateProduct);
 // DELETE
-router.delete(constants_1.PATHS.rootId, productController_1.deleteProduct);
-exports.default = router;
+router.delete(PATHS.rootId, deleteProduct);
+export default router;

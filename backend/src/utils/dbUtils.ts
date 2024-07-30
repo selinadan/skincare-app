@@ -37,10 +37,10 @@ function allAsync<T>(sql: string, params: any[] = []): Promise<T[]> {
 	);
 }
 
-function getAsync<T>(sql: string, params: any[] = []): Promise<T | undefined> {
+function getAsync<T>(sql: string, params: any[] = []): Promise<T> {
 	return new Promise((resolve, reject) =>
 		db.get(sql, params, (error, row) =>
-			error ? reject(error) : resolve(row as T | undefined)
+			error ? reject(error) : resolve(row as T)
 		)
 	);
 }
@@ -68,10 +68,7 @@ export async function allQuery<T>(
 	}
 }
 
-export async function getQuery<T>(
-	sql: string,
-	params: any[] = []
-): Promise<T | undefined> {
+export async function getQuery<T>(sql: string, params: any[] = []): Promise<T> {
 	try {
 		return await getAsync(sql, params);
 	} catch (error) {

@@ -1,12 +1,14 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
-		"module": "commonjs",
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "node",
 		"outDir": "./dist",
 		"rootDir": "./src",
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
 		"baseUrl": "./src",
 		"paths": {
 			"Utils/*": ["utils/*"],

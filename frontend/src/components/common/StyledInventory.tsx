@@ -10,10 +10,7 @@ import { theme } from 'Components/common/MuiTheme';
 
 export const StyledInventoryContainer = styled(Paper)(() => ({
 	display: 'flex',
-	justifyContent: 'center',
-	alignItems: 'center',
-	width: '65%',
-	margin: 'auto',
+	margin: 90,
 }));
 
 export const StyledTableContainer = styled(TableContainer)(() => ({

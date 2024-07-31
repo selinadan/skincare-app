@@ -63,7 +63,10 @@ export default function InventoryTable() {
 						</StyledTableCell>
 						<StyledTableCell>{translations.price}</StyledTableCell>
 						<StyledTableCell>{translations.rating}</StyledTableCell>
-						<StyledTableCell>
+						<StyledTableCell
+							align="right"
+							sx={{ paddingRight: '2rem' }}
+						>
 							{translations.actions}
 						</StyledTableCell>
 					</TableRow>

@@ -16,8 +16,8 @@ export default function App() {
 		<ThemeProvider theme={theme}>
 			<CssBaseline>
 				<Router>
-					<NavBar />
 					<ModalProvider>
+						<NavBar />
 						<Routes>
 							<Route
 								path="/routine"

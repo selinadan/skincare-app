@@ -1,4 +1,10 @@
-import React, { useState, createContext, useContext, ReactNode } from 'react';
+import React, {
+	useState,
+	createContext,
+	useContext,
+	ReactNode,
+	useCallback,
+} from 'react';
 
 import { Product } from 'Utils/types';
 import { PRODUCT_CATEGORIES } from 'Utils/constants';
@@ -37,15 +43,18 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 	const [mode, setMode] = useState('');
 	const [product, setProduct] = useState(defaultProduct);
 
-	const handleOpenModal = (
-		open: boolean,
-		mode: string = '',
-		product: Product = defaultProduct
-	) => {
-		setIsOpen(open);
-		setMode(mode);
-		setProduct(product);
-	};
+	const handleOpenModal = useCallback(
+		(
+			open: boolean,
+			mode: string = '',
+			product: Product = defaultProduct
+		) => {
+			setIsOpen(open);
+			setMode(mode);
+			setProduct(product);
+		},
+		[]
+	);
 
 	return (
 		<ModalContext.Provider

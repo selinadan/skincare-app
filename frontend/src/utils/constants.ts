@@ -44,3 +44,8 @@ export const MODAL_MODES = {
 	update: 'update',
 	delete: 'delete',
 };
+
+export const NAV_ITEM_TYPE = {
+	ROUTE: 'route',
+	BUTTON: 'button',
+};

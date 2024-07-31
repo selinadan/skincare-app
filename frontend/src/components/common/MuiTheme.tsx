@@ -23,6 +23,8 @@ export const theme = createTheme({
 					color: 'transparent',
 					stroke: palette.dark,
 					strokeWidth: 1.15,
+					borderRadius: 0,
+					border: `2px solid ${palette.dark}`,
 				},
 			},
 		},
@@ -65,6 +67,18 @@ export const theme = createTheme({
 					borderStyle: 'solid',
 					borderColor: palette.dark,
 					borderRadius: 0,
+				},
+			},
+		},
+		MuiDialog: {
+			styleOverrides: {
+				root: {
+					'& .MuiPaper-root': {
+						border: 2,
+						borderStyle: 'solid',
+						borderRadius: 0,
+						boxShadow: `10px 10px ${palette.dark}`,
+					},
 				},
 			},
 		},

@@ -39,7 +39,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 		category: PRODUCT_CATEGORIES.cleanser,
 	};
 
-	const [isOpen, setIsOpen] = useState(false);
+	const [isOpen, setisOpen] = useState(true);
 	const [mode, setMode] = useState('');
 	const [product, setProduct] = useState(defaultProduct);
 
@@ -49,7 +49,7 @@ const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
 			mode: string = '',
 			product: Product = defaultProduct
 		) => {
-			setIsOpen(open);
+			setisOpen(open);
 			setMode(mode);
 			setProduct(product);
 		},

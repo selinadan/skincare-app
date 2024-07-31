@@ -10,6 +10,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 
+import StyledTitleBar from 'Components/common/StyledTitleBar';
+
 import { translations } from 'Utils/translations';
 import {
 	PRODUCT_CATEGORIES,
@@ -78,6 +80,7 @@ export default function ProductModal() {
 				open={isOpen}
 				onClose={() => handleOpenModal(false)}
 			>
+				<StyledTitleBar onClose={() => handleOpenModal(false)} />
 				<DialogContent>
 					<DialogContentText>{translations.name}</DialogContentText>
 					<TextField
@@ -126,7 +129,7 @@ export default function ProductModal() {
 						variant="contained"
 						onClick={() => {
 							handleSubmit();
-							handleOpenModal(false);
+							handleOpenModal(true);
 						}}
 					>
 						{submitButtonText}

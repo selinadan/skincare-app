@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import InputAdornment from '@mui/material/InputAdornment';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Stack from '@mui/material/Stack';
 
 import StyledTitleBar from 'Components/common/StyledTitleBar';
 
@@ -80,12 +81,14 @@ export default function ProductModal() {
 				open={isOpen}
 				onClose={() => handleOpenModal(false)}
 			>
-				<StyledTitleBar onClose={() => handleOpenModal(false)} />
+				<StyledTitleBar
+					title={translations.addProduct}
+					onClose={() => handleOpenModal(false)}
+				/>
 				<DialogContent>
 					<DialogContentText>{translations.name}</DialogContentText>
 					<TextField
 						required
-						label={!product.name ? translations.sampleName : ''}
 						name={PRODUCT_ATTRIBUTES.name}
 						onChange={handleInputChange}
 						value={newProduct.name}
@@ -126,7 +129,7 @@ export default function ProductModal() {
 				</DialogContent>
 				<DialogActions>
 					<Button
-						variant="contained"
+						variant="outlined"
 						onClick={() => {
 							handleSubmit();
 							handleOpenModal(true);

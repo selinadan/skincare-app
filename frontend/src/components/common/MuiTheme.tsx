@@ -1,11 +1,23 @@
 import { createTheme } from '@mui/material/styles';
 
 export const palette = {
-	lighter: '#FFEAE3',
-	light: '#FFCBCB',
-	medium: '#FFB1B1',
-	dark: '#121481',
+	lighter: '#ffffff',
+	light: '#ffffff',
+	medium: '#ffffff',
+	dark: '#000000',
 };
+// export const palette = {
+// 	lighter: '#000000',
+// 	light: '#000000',
+// 	medium: '#000000',
+// 	dark: '#ffffff',
+// };
+// export const palette = {
+// 	lighter: '#FFEAE3',
+// 	light: '#FFCBCB',
+// 	medium: '#FFB1B1',
+// 	dark: '#121481',
+// };
 
 export const theme = createTheme({
 	components: {
@@ -47,26 +59,22 @@ export const theme = createTheme({
 						width: '100%',
 						paddingTop: '1rem',
 						paddingBottom: '1rem',
-						// '&:first-of-type': {
-						// 	borderBottom: 'none',
-						// },
-						// '&:last-of-type': {
-						// 	borderTop: 'none',
-						// },
-						'&:hover': {
-							boxShadow: `10px 10px ${palette.dark}`,
-						},
 					},
 				},
 			},
 		},
 		MuiButton: {
 			styleOverrides: {
+				root: {
+					borderRadius: 0,
+					'&:hover': {
+						boxShadow: `10px 10px ${palette.dark}`,
+					},
+				},
 				outlined: {
 					border: '1px',
 					borderStyle: 'solid',
 					borderColor: palette.dark,
-					borderRadius: 0,
 				},
 			},
 		},
@@ -74,6 +82,7 @@ export const theme = createTheme({
 			styleOverrides: {
 				root: {
 					'& .MuiPaper-root': {
+						backgroundColor: palette.lighter,
 						border: 2,
 						borderStyle: 'solid',
 						borderRadius: 0,
@@ -82,10 +91,31 @@ export const theme = createTheme({
 				},
 			},
 		},
+		MuiDialogContentText: {
+			styleOverrides: {
+				root: {
+					fontSize: '16px',
+				},
+			},
+		},
+		MuiOutlinedInput: {
+			styleOverrides: {
+				root: {
+					height: 30,
+					borderRadius: 0,
+					'&:hover': {
+						boxShadow: `10px 10px ${palette.dark}`,
+					},
+					'& .MuiOutlinedInput-notchedOutline': {
+						borderColor: palette.dark,
+					},
+				},
+			},
+		},
 	},
 	typography: {
 		fontFamily: `'Courier Prime', monospace`,
-		fontSize: 18,
+		fontSize: 16,
 	},
 	palette: {
 		primary: {

@@ -10,5 +10,4 @@ export const translations = {
 	actions: 'Actions',
 	addProduct: 'Add Product',
 	editProduct: 'Edit Product',
-	sampleName: 'Hada Labo Gokujyun Hydrating Foam Cleanser',
 };

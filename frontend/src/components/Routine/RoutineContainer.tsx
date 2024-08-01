@@ -11,7 +11,7 @@ export default function RoutineContainer() {
 	return (
 		<div>
 			<Button
-				variant="contained"
+				variant="outlined"
 				onClick={() => {
 					handleOpenModal(true, MODAL_MODES.create);
 				}}

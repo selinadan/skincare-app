@@ -1,5 +1,6 @@
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 
 import DisabledByDefaultSharpIcon from '@mui/icons-material/DisabledByDefaultSharp';
@@ -7,14 +8,15 @@ import DisabledByDefaultSharpIcon from '@mui/icons-material/DisabledByDefaultSha
 import { palette } from 'Components/common/MuiTheme';
 
 interface StyledTitleBarProps {
+	title: string;
 	onClose: () => void;
 }
 
-const StyledBox = styled(Box)(() => ({
+const StyledGrid = styled(Grid)(() => ({
 	borderBottom: `2px solid ${palette.dark}`,
-	height: 90,
-	alignContent: 'center',
-	justifyContent: 'center',
+	height: 50,
+	justifyContent: 'space-between',
+	alignItems: 'center',
 	display: 'flex',
 	backgroundColor: palette.medium,
 	'& .MuiIconButton-root': {
@@ -29,13 +31,20 @@ const StyledBox = styled(Box)(() => ({
 	},
 }));
 
-export default function StyledTitleBar({ onClose }: StyledTitleBarProps) {
+export default function StyledTitleBar({
+	title,
+	onClose,
+}: StyledTitleBarProps) {
 	return (
-		<StyledBox>
-			<IconButton onClick={() => onClose()}>
-				<DisabledByDefaultSharpIcon />
-			</IconButton>
-			wrowwwww
-		</StyledBox>
+		<StyledGrid container>
+			<Grid item marginLeft={2}>
+				{title}
+			</Grid>
+			<Grid item marginRight={2}>
+				<IconButton onClick={() => onClose()}>
+					<DisabledByDefaultSharpIcon />
+				</IconButton>
+			</Grid>
+		</StyledGrid>
 	);
 }

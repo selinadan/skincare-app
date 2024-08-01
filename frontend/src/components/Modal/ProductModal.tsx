@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, ChangeEvent } from 'react';
 
+import { styled } from '@mui/material/styles';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
@@ -22,6 +23,10 @@ import {
 import { Product } from 'Utils/types';
 import { createProduct, updateProduct } from 'Api/productsClient';
 import { useProductModal } from './ModalContext';
+
+const StyledStack = styled(Stack)(() => ({
+	paddingTop: 15,
+}));
 
 export default function ProductModal() {
 	const { isOpen, mode, product, handleOpenModal } = useProductModal();
@@ -77,7 +82,7 @@ export default function ProductModal() {
 	return (
 		<div>
 			<Dialog
-				fullWidth
+				// fullWidth
 				open={isOpen}
 				onClose={() => handleOpenModal(false)}
 			>
@@ -86,58 +91,66 @@ export default function ProductModal() {
 					onClose={() => handleOpenModal(false)}
 				/>
 				<DialogContent>
-					<DialogContentText>{translations.name}</DialogContentText>
-					<TextField
-						required
-						name={PRODUCT_ATTRIBUTES.name}
-						onChange={handleInputChange}
-						value={newProduct.name}
-					/>
+					<StyledStack>
+						<DialogContentText>
+							{translations.name}
+						</DialogContentText>
+						<TextField
+							required
+							name={PRODUCT_ATTRIBUTES.name}
+							onChange={handleInputChange}
+							value={newProduct.name}
+						/>
+					</StyledStack>
+					<StyledStack>
+						<DialogContentText>
+							{translations.category}
+						</DialogContentText>
+						<Select
+							required
+							label={translations.category}
+							name={PRODUCT_ATTRIBUTES.category}
+							value={newProduct.category}
+							onChange={handleSelectChange}
+						>
+							{productCategoriesKeys.map(key => (
+								<MenuItem key={key} value={key}>
+									{PRODUCT_CATEGORIES[key]}
+								</MenuItem>
+							))}
+						</Select>
+					</StyledStack>
+					<StyledStack>
+						<DialogContentText>
+							{translations.price}
+						</DialogContentText>
+						<TextField
+							required
+							name={PRODUCT_ATTRIBUTES.price}
+							onChange={handleInputChange}
+							InputProps={{
+								startAdornment: (
+									<InputAdornment position="start">
+										$
+									</InputAdornment>
+								),
+							}}
+						/>
+					</StyledStack>
+					<DialogContent>
+						<DialogActions>
+							<Button
+								variant="outlined"
+								onClick={() => {
+									handleSubmit();
+									handleOpenModal(true);
+								}}
+							>
+								{submitButtonText}
+							</Button>
+						</DialogActions>
+					</DialogContent>
 				</DialogContent>
-				<DialogContent>
-					<DialogContentText>
-						{translations.category}
-					</DialogContentText>
-					<Select
-						required
-						label={translations.category}
-						name={PRODUCT_ATTRIBUTES.category}
-						value={newProduct.category}
-						onChange={handleSelectChange}
-					>
-						{productCategoriesKeys.map(key => (
-							<MenuItem key={key} value={key}>
-								{PRODUCT_CATEGORIES[key]}
-							</MenuItem>
-						))}
-					</Select>
-				</DialogContent>
-				<DialogContent>
-					<DialogContentText>{translations.price}</DialogContentText>
-					<TextField
-						required
-						name={PRODUCT_ATTRIBUTES.price}
-						onChange={handleInputChange}
-						InputProps={{
-							startAdornment: (
-								<InputAdornment position="start">
-									$
-								</InputAdornment>
-							),
-						}}
-					/>
-				</DialogContent>
-				<DialogActions>
-					<Button
-						variant="outlined"
-						onClick={() => {
-							handleSubmit();
-							handleOpenModal(true);
-						}}
-					>
-						{submitButtonText}
-					</Button>
-				</DialogActions>
 			</Dialog>
 		</div>
 	);

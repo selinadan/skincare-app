@@ -88,12 +88,20 @@ export const theme = createTheme({
 						borderRadius: 0,
 						boxShadow: `10px 10px ${palette.dark}`,
 					},
+					'& .MuiButton-root': {
+						border: 1,
+						borderStyle: 'solid',
+						borderRadius: 0,
+						color: palette.dark,
+						boxShadow: `10px 10px ${palette.dark}`,
+					},
 				},
 			},
 		},
 		MuiDialogContentText: {
 			styleOverrides: {
 				root: {
+					color: palette.dark,
 					fontSize: '16px',
 				},
 			},
@@ -105,6 +113,9 @@ export const theme = createTheme({
 					borderRadius: 0,
 					'&:hover': {
 						boxShadow: `10px 10px ${palette.dark}`,
+						border: 1,
+						borderStyle: 'solid',
+						borderColor: palette.dark,
 					},
 					'& .MuiOutlinedInput-notchedOutline': {
 						borderColor: palette.dark,

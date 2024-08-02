@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import TableRow from '@mui/material/TableRow';
 import TableHead from '@mui/material/TableHead';
 import IconButton from '@mui/material/IconButton';
-import Rating from '@mui/material/Rating';
 
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import { MODAL_MODES } from 'Utils/constants';
 import { translations } from 'Utils/translations';
@@ -19,6 +20,7 @@ import {
 	StyledTableBody,
 	StyledTableCell,
 	StyledTableFooter,
+	StyledRating,
 } from 'Components/common/StyledInventory';
 
 export default function InventoryTable() {
@@ -74,14 +76,7 @@ export default function InventoryTable() {
 				<StyledTableBody>
 					{products &&
 						products.map((product, index) => (
-							<TableRow
-								key={index}
-								sx={{
-									'&:last-child td, &:last-child th': {
-										border: 0,
-									},
-								}}
-							>
+							<TableRow key={index}>
 								<StyledTableCell>
 									{product.name}
 								</StyledTableCell>
@@ -92,7 +87,21 @@ export default function InventoryTable() {
 									{product.price}
 								</StyledTableCell>
 								<StyledTableCell>
-									<Rating />
+									<StyledRating
+										name="customized-color"
+										defaultValue={2}
+										getLabelText={(value: number) =>
+											`${value} Heart${value !== 1 ? 's' : ''}`
+										}
+										precision={0.5}
+										icon={
+											<FavoriteIcon fontSize="inherit" />
+										}
+										emptyIcon={
+											<FavoriteBorderIcon fontSize="inherit" />
+										}
+										size="small"
+									/>
 								</StyledTableCell>
 								<StyledTableCell align="right">
 									<IconButton
@@ -114,9 +123,11 @@ export default function InventoryTable() {
 						))}
 				</StyledTableBody>
 				<StyledTableFooter>
-					<StyledTableCell>
-						{`${translations.total}: ${translations.currency}${getPriceTotal()}`}
-					</StyledTableCell>
+					<TableRow>
+						<StyledTableCell>
+							{`${translations.total}: ${translations.currency}${getPriceTotal()}`}
+						</StyledTableCell>
+					</TableRow>
 				</StyledTableFooter>
 			</StyledTable>
 		</StyledTableContainer>

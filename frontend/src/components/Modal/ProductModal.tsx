@@ -25,7 +25,7 @@ import { createProduct, updateProduct } from 'Api/productsClient';
 import { useProductModal } from './ModalContext';
 
 const StyledStack = styled(Stack)(() => ({
-	paddingTop: 15,
+	paddingBottom: 15,
 }));
 
 export default function ProductModal() {
@@ -143,7 +143,7 @@ export default function ProductModal() {
 								variant="outlined"
 								onClick={() => {
 									handleSubmit();
-									handleOpenModal(true);
+									handleOpenModal(false);
 								}}
 							>
 								{submitButtonText}

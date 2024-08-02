@@ -34,9 +34,12 @@ export const theme = createTheme({
 				root: {
 					color: 'transparent',
 					stroke: palette.dark,
-					strokeWidth: 1.15,
+					strokeWidth: 1,
 					borderRadius: 0,
-					border: `2px solid ${palette.dark}`,
+					'&:hover': {
+						border: `1px solid ${palette.dark}`,
+						boxShadow: `10px 10px ${palette.dark}`,
+					},
 				},
 			},
 		},
@@ -69,6 +72,7 @@ export const theme = createTheme({
 					borderRadius: 0,
 					'&:hover': {
 						boxShadow: `10px 10px ${palette.dark}`,
+						color: palette.dark,
 					},
 				},
 				outlined: {
@@ -92,6 +96,7 @@ export const theme = createTheme({
 						border: 1,
 						borderStyle: 'solid',
 						borderRadius: 0,
+						borderColor: palette.dark,
 						color: palette.dark,
 						boxShadow: `10px 10px ${palette.dark}`,
 					},

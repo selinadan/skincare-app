@@ -38,19 +38,23 @@ export default function ProductModal() {
 		PRODUCT_CATEGORIES
 	) as ProductCategoriesKeys[];
 
-	const [newProduct, setNewProduct] = useState<Product>(product);
+	const [newProduct, setNewProduct] = useState(product);
 	const [submitButtonText, setSubmitButtonText] = useState('');
 
 	const isCreate = mode === MODAL_MODES.create;
 	const isUpdate = mode === MODAL_MODES.update;
 
 	useEffect(() => {
+		if (newProduct !== product) {
+			setNewProduct(product);
+		}
+
 		if (isCreate) {
 			setSubmitButtonText(translations.addProduct);
 		} else if (isUpdate) {
-			setSubmitButtonText(translations.editProduct);
+			setSubmitButtonText(translations.updateProduct);
 		}
-	});
+	}, [product]);
 
 	const handleInputChange = useCallback(
 		(event: ChangeEvent<HTMLInputElement>) => {
@@ -127,6 +131,7 @@ export default function ProductModal() {
 						<TextField
 							required
 							name={PRODUCT_ATTRIBUTES.price}
+							value={newProduct.price}
 							onChange={handleInputChange}
 							InputProps={{
 								startAdornment: (

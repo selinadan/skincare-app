@@ -9,5 +9,5 @@ export const translations = {
 	currency: '$',
 	actions: 'Actions',
 	addProduct: 'Add Product',
-	editProduct: 'Edit Product',
+	updateProduct: 'Update Product',
 };

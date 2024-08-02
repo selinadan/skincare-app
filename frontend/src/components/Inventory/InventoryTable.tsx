@@ -44,7 +44,7 @@ export default function InventoryTable() {
 		fetchProducts();
 	}, []);
 
-	const handleEditProduct = (product: Product) =>
+	const handleUpdateProduct = (product: Product) =>
 		handleOpenModal(true, MODAL_MODES.update, product);
 
 	const handleDeleteProduct = (id: number) => deleteProduct(id);
@@ -106,7 +106,7 @@ export default function InventoryTable() {
 								<StyledTableCell align="right">
 									<IconButton
 										onClick={() =>
-											handleEditProduct(product)
+											handleUpdateProduct(product)
 										}
 									>
 										<Edit />

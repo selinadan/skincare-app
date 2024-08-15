@@ -1,11 +1,13 @@
 import { productGateway } from 'Gateways/productGateway';
 import { STATUS } from 'Utils/constants';
 import { logger } from 'Utils/logger';
+import { broadcast } from '../websocket';
 export const getAllProducts = async (_request, response) => {
     try {
         const products = await productGateway.getAllProducts();
-        logger.info('Fetched all products:', products);
-        response.status(STATUS.OK).json(products);
+        broadcast({ type: 'DB_UPDATED', payload: { products } });
+        logger.info('Fetched all products');
+        response.sendStatus(STATUS.OK);
     }
     catch (error) {
         logger.error('Failed to fetch all products', error);
@@ -16,7 +18,7 @@ export const getProduct = async (request, response) => {
     const id = request.body;
     try {
         const product = await productGateway.getProductById(id);
-        logger.info('Fetched product', product);
+        logger.info(`Fetched product ID ${product.id}`);
         response.status(STATUS.OK).json(product);
     }
     catch (error) {
@@ -28,7 +30,7 @@ export const createProduct = async (request, response) => {
     try {
         const product = request.body;
         await productGateway.createProduct(product);
-        logger.info('Product created', product);
+        logger.info('Product created');
         response.status(STATUS.CREATED).json(product);
     }
     catch (error) {
@@ -41,7 +43,7 @@ export const updateProduct = async (request, response) => {
     const productId = product.id;
     try {
         await productGateway.updateProduct(product);
-        logger.info(`Product ID ${productId} updated`, product);
+        logger.info(`Product ID ${productId} updated`);
         response.status(STATUS.CREATED).json(product);
     }
     catch (error) {
@@ -50,11 +52,11 @@ export const updateProduct = async (request, response) => {
     }
 };
 export const deleteProduct = async (request, response) => {
-    const id = request.body;
+    const id = parseInt(request.query.id);
     try {
         await productGateway.deleteProduct(id);
-        logger.info(`Product ID ${id} deleted`, id);
-        response.status(STATUS.NO_CONTENT).send(id);
+        logger.info(`Product ID ${id} deleted`);
+        response.sendStatus(STATUS.OK);
     }
     catch (error) {
         logger.error(`Failed to delete product ID ${id}`, error);

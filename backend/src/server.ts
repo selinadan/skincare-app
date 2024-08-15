@@ -1,13 +1,16 @@
 import express, { Request, Response, NextFunction } from 'express';
+import http from 'http';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
 import { PATHS, FRONTEND_URL, STATUS } from 'Utils/constants';
 import productRoutes from 'Routes/productRoutes';
 import { morganFormat, logger } from 'Utils/logger';
+import websocket from './websocket';
 
-const app = express();
 const PORT = process.env.PORT || 3000;
+const app = express();
+const server = http.createServer(app);
 
 // Middleware
 app.use(bodyParser.json());
@@ -25,6 +28,12 @@ app.use(
 
 // Routes
 app.use(PATHS.products, productRoutes);
+
+server.on('upgrade', (request, socket, head) => {
+	websocket.handleUpgrade(request, socket, head, ws => {
+		websocket.emit('connection', ws, request);
+	});
+});
 
 app.use((request: Request, response: Response) => {
 	logger.warn(`404 Not Found: ${request.method} ${request.url}`);
@@ -46,6 +55,6 @@ app.use((error: Error, request: Request, response: Response) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+server.listen(PORT, () => {
 	logger.info(`Server is running on port ${PORT}`);
 });

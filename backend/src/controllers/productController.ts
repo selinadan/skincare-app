@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { productGateway } from 'Gateways/productGateway';
 import { STATUS } from 'Utils/constants';
 import { logger } from 'Utils/logger';
+import { broadcast } from '../websocket';
 
 export const getAllProducts = async (
 	_request: Request,
@@ -10,6 +11,7 @@ export const getAllProducts = async (
 ): Promise<void> => {
 	try {
 		const products = await productGateway.getAllProducts();
+
 		logger.info('Fetched all products');
 		response.status(STATUS.OK).json(products);
 	} catch (error) {
@@ -41,8 +43,11 @@ export const createProduct = async (
 	try {
 		const product = request.body;
 		await productGateway.createProduct(product);
+
+		broadcast({ type: 'PRODUCT_CREATED', payload: product });
+
 		logger.info('Product created');
-		response.status(STATUS.CREATED).json(product);
+		response.status(STATUS.CREATED);
 	} catch (error) {
 		logger.error('Failed to create product', error);
 		response.status(STATUS.INTERNAL_SERVER_ERROR);
@@ -58,6 +63,8 @@ export const updateProduct = async (
 
 	try {
 		await productGateway.updateProduct(product);
+		broadcast({ type: 'PRODUCT_UPDATED', payload: product });
+
 		logger.info(`Product ID ${productId} updated`);
 		response.status(STATUS.CREATED).json(product);
 	} catch (error) {
@@ -74,6 +81,9 @@ export const deleteProduct = async (
 
 	try {
 		await productGateway.deleteProduct(id);
+
+		broadcast({ type: 'PRODUCT_DELETED', payload: id });
+
 		logger.info(`Product ID ${id} deleted`);
 		response.sendStatus(STATUS.OK);
 	} catch (error) {

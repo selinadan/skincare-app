@@ -32,9 +32,9 @@ class ProductGateway {
         return getQuery(sql, [id]);
     }
     async createProduct(product) {
-        const sql = `INSERT INTO products (${this.allColumns}) VALUES (?, ?, ?, ?)`;
+        const columns = 'name, price, category';
+        const sql = `INSERT INTO products (${columns}) VALUES (?, ?, ?)`;
         const result = await runQuery(sql, [
-            product.id,
             product.name,
             product.price,
             product.category,
